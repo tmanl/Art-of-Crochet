@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Art of Crochet (AOC) – Schools</title>
+  <title>Art of Crochet (AOC) – Experiences for Teams, Schools & Communities</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -31,7 +31,6 @@
       text-decoration: none;
     }
 
-    /* Layout helpers */
     .container {
       max-width: 1120px;
       margin: 0 auto;
@@ -44,7 +43,7 @@
       top: 0;
       z-index: 40;
       backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.88);
       border-bottom: 1px solid #e5e7eb;
     }
 
@@ -90,7 +89,7 @@
     .nav-links {
       display: none;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1.4rem;
       font-size: 0.9rem;
     }
 
@@ -99,7 +98,7 @@
     }
 
     .nav-cta {
-      padding: 0.4rem 0.9rem;
+      padding: 0.45rem 1rem;
       border-radius: 999px;
       color: white;
       background: var(--aoc-orange);
@@ -108,22 +107,30 @@
 
     /* Hero */
     .hero {
-      padding: 4rem 0 3rem;
+      padding: 3.5rem 0 3rem;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 2.5rem;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 2.75rem;
       align-items: center;
     }
 
+    .hero-kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 0.4rem;
+    }
+
     .hero h1 {
-      font-size: clamp(2.3rem, 4vw, 3rem);
+      font-size: clamp(2.3rem, 4vw, 3.1rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--aoc-black);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .hero h1 span {
@@ -133,19 +140,19 @@
     .hero p {
       font-size: 1rem;
       color: #374151;
-      margin-bottom: 1.5rem;
-      max-width: 34rem;
+      margin-bottom: 1.4rem;
+      max-width: 36rem;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.3rem;
     }
 
     .btn-dark {
-      padding: 0.75rem 1.2rem;
+      padding: 0.8rem 1.3rem;
       border-radius: 999px;
       background: var(--aoc-black);
       color: white;
@@ -154,7 +161,7 @@
     }
 
     .btn-outline {
-      padding: 0.75rem 1.2rem;
+      padding: 0.8rem 1.3rem;
       border-radius: 999px;
       border: 1px solid var(--aoc-black);
       color: var(--aoc-black);
@@ -163,59 +170,93 @@
       background: transparent;
     }
 
-    .hero-pills {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 0.75rem;
-      font-size: 0.8rem;
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.78rem;
       color: #4b5563;
     }
 
-    .hero-pill {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .hero-pill-dot {
-      width: 0.45rem;
-      height: 0.45rem;
+    .hero-tag {
+      padding: 0.3rem 0.65rem;
       border-radius: 999px;
-      background: var(--aoc-gold);
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(209, 213, 219, 0.9);
     }
 
-    /* Hero images grid */
     .hero-images {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
     }
 
     .hero-img-box {
       position: relative;
       width: 100%;
-      padding-bottom: 125%;
-      border-radius: 1rem;
+      padding-bottom: 120%;
+      border-radius: 1.2rem;
       overflow: hidden;
       background: #e5e7eb;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.16);
     }
 
-    .hero-img-box span {
+    .hero-img-tag {
       position: absolute;
-      inset: 0;
+      inset: 0.6rem;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
+      align-items: flex-end;
+      justify-content: flex-start;
+      font-size: 0.75rem;
+      color: #f9fafb;
+      padding: 0.5rem 0.65rem;
+      background: linear-gradient(to top, rgba(15,23,42,0.6), transparent 55%);
+      border-radius: 0.9rem;
+    }
+
+    .hero-img-top {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #111827;
+      position: absolute;
+      inset: 0.6rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 0.55rem 0.7rem;
+      background: rgba(255,255,255,0.9);
+      border-radius: 0.9rem;
+    }
+
+    /* Trusted by */
+    .trusted {
+      padding-bottom: 2.2rem;
+    }
+    .trusted-row {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .trusted-label {
       color: #6b7280;
-      padding: 0.5rem;
-      text-align: center;
+    }
+
+    .trusted-pill {
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
     }
 
     /* Gradient bar */
     .bar {
-      height: 0.4rem;
+      height: 0.35rem;
       width: 100%;
       background: linear-gradient(90deg, var(--aoc-orange), var(--aoc-gold));
     }
@@ -232,9 +273,63 @@
       margin-bottom: 1.75rem;
     }
 
+    .section-kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 0.35rem;
+    }
+
+    /* Who we work with */
+    .segments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .segment-card {
+      background: white;
+      border-radius: 1.4rem;
+      padding: 1.3rem 1.4rem;
+      border: 1px solid rgba(110, 74, 56, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .segment-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #9ca3af;
+    }
+
+    .segment-title {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--aoc-black);
+    }
+
+    .segment-body {
+      font-size: 0.86rem;
+      color: #4b5563;
+    }
+
+    .segment-links {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      color: #6b7280;
+    }
+
+    .segment-links a {
+      text-decoration: underline;
+    }
+
+    /* Workplace / Schools / Community blocks */
     .two-col {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.4fr);
       gap: 2rem;
       align-items: flex-start;
     }
@@ -242,23 +337,33 @@
     .card-dark {
       background: var(--aoc-black);
       color: white;
-      padding: 1.75rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+      padding: 1.7rem 1.8rem;
+      border-radius: 1.6rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+    }
+
+    .card-dark h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-dark p {
+      font-size: 0.95rem;
+      color: #e5e7eb;
     }
 
     .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-top: 1rem;
+      margin-top: 0.9rem;
     }
 
     .chip {
       font-size: 0.7rem;
-      padding: 0.35rem 0.7rem;
+      padding: 0.3rem 0.7rem;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.35);
     }
 
     .chip-orange {
@@ -266,145 +371,86 @@
       border-color: var(--aoc-orange);
     }
 
-    .card-light {
-      background: white;
-      border-radius: 1.3rem;
-      padding: 1.25rem 1.5rem;
-      border: 1px solid rgba(110, 74, 56, 0.3);
+    .offwhite {
+      background: rgba(244, 239, 232, 0.7);
     }
 
-    .card-light h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--aoc-black);
-      margin-bottom: 0.4rem;
-    }
-
-    .card-light p, .card-light li {
-      font-size: 0.9rem;
-      color: #4b5563;
-    }
-
-    .card-light ul {
-      padding-left: 1.1rem;
-      margin-top: 0.3rem;
-    }
-
-    /* Programs grid */
     .programs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
     }
 
     .program-card {
       background: white;
-      border-radius: 1.5rem;
+      border-radius: 1.4rem;
       border: 1px solid rgba(211, 160, 78, 0.7);
-      overflow: hidden;
+      padding: 1.2rem 1.3rem;
       display: flex;
       flex-direction: column;
+      gap: 0.35rem;
     }
 
-    .program-image {
-      background: #e5e7eb;
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #6b7280;
-    }
-
-    .program-body {
-      padding: 1.25rem 1.5rem 1rem 1.5rem;
-      flex: 1;
+    .program-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #9ca3af;
     }
 
     .program-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--aoc-black);
-      margin-bottom: 0.35rem;
     }
 
     .program-text {
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       color: #4b5563;
-      margin-bottom: 0.35rem;
     }
 
-    .program-duration {
+    .program-meta {
       font-size: 0.8rem;
       color: #6b7280;
     }
 
-    .program-footer {
-      padding: 0 1.5rem 1.25rem 1.5rem;
-    }
-
-    .btn-small {
-      display: inline-block;
-      padding: 0.5rem 0.9rem;
-      border-radius: 999px;
-      background: var(--aoc-orange);
-      color: white;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    /* Benefits */
-    .benefits-grid {
+    /* How it works */
+    .steps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.1rem;
     }
 
-    .benefit-card {
+    .step-card {
       background: white;
       border-radius: 1.4rem;
-      border: 1px solid rgba(211, 160, 78, 0.7);
-      padding: 1.1rem 1.25rem;
+      border: 1px solid rgba(211,160,78,0.6);
+      padding: 1.1rem 1.2rem;
+      font-size: 0.88rem;
+      color: #4b5563;
     }
 
-    .benefit-icon {
-      font-size: 1.3rem;
-      margin-bottom: 0.25rem;
+    .step-number {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 0.2rem;
     }
 
-    .benefit-title {
+    .step-title {
       font-size: 0.98rem;
       font-weight: 600;
       color: var(--aoc-black);
       margin-bottom: 0.25rem;
     }
 
-    .benefit-text {
-      font-size: 0.86rem;
-      color: #4b5563;
-    }
-
-    /* Safety card */
-    .safety-card {
-      background: white;
-      border-radius: 1.5rem;
-      border: 1px solid rgba(211, 160, 78, 0.7);
-      padding: 1.75rem;
-    }
-
-    .safety-card ul {
-      margin-top: 0.75rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.75rem;
-      padding-left: 1.1rem;
-      font-size: 0.9rem;
-      color: #374151;
-    }
-
     /* Pricing */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
+      gap: 1.4rem;
       margin-top: 1rem;
     }
 
@@ -413,6 +459,14 @@
       border-radius: 1.4rem;
       border: 1px solid rgba(211, 160, 78, 0.7);
       padding: 1.4rem 1.5rem;
+    }
+
+    .pricing-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 0.2rem;
     }
 
     .pricing-name {
@@ -426,13 +480,13 @@
       font-size: 1.8rem;
       font-weight: 800;
       color: var(--aoc-orange);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .pricing-details {
       font-size: 0.9rem;
       color: #4b5563;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .btn-black {
@@ -446,7 +500,7 @@
     }
 
     .pricing-note {
-      margin-top: 0.75rem;
+      margin-top: 0.7rem;
       font-size: 0.8rem;
       color: #6b7280;
     }
@@ -462,23 +516,24 @@
     .booking-form {
       display: grid;
       gap: 0.7rem;
-      margin-top: 1.2rem;
+      margin-top: 1.1rem;
     }
 
     .booking-form input,
     .booking-form textarea {
       border-radius: 0.8rem;
       border: 1px solid #d1d5db;
-      padding: 0.75rem 0.9rem;
+      padding: 0.8rem 0.9rem;
       font-size: 0.9rem;
       font-family: inherit;
       resize: vertical;
+      background: white;
     }
 
     .booking-form button {
       border-radius: 0.8rem;
       border: none;
-      padding: 0.8rem 1.1rem;
+      padding: 0.85rem 1.1rem;
       background: var(--aoc-orange);
       color: white;
       font-weight: 600;
@@ -490,9 +545,22 @@
       border-radius: 1.6rem;
       background: #e5e7eb;
       padding: 2rem;
-      text-align: center;
+      text-align: left;
       font-size: 0.9rem;
-      color: #6b7280;
+      color: #4b5563;
+    }
+
+    .booking-image h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--aoc-black);
+      margin-bottom: 0.4rem;
+    }
+
+    .booking-image ul {
+      margin-top: 0.4rem;
+      padding-left: 1.1rem;
+      font-size: 0.86rem;
     }
 
     /* Footer */
@@ -525,7 +593,7 @@
     /* Responsive */
     @media (max-width: 900px) {
       .nav-links {
-        display: none; /* keep it simple on mobile */
+        display: none;
       }
       .hero-grid,
       .two-col,
@@ -534,6 +602,9 @@
       }
       .hero {
         padding-top: 3rem;
+      }
+      .trusted-row {
+        gap: 0.8rem;
       }
     }
 
@@ -556,204 +627,288 @@
         </div>
       </div>
       <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#programs">Programs</a>
-        <a href="#benefits">Benefits</a>
-        <a href="#safety">Safety</a>
+        <a href="#segments">Overview</a>
+        <a href="#workplaces">Workplaces</a>
+        <a href="#schools">Schools</a>
+        <a href="#community">Community</a>
         <a href="#pricing">Pricing</a>
         <a href="#booking" class="nav-cta">Book a visit</a>
       </nav>
     </div>
   </header>
 
-  <!-- Hero -->
   <main>
+    <!-- Hero -->
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <h1>Hands-on making for <span>schools</span></h1>
+          <div class="hero-kicker">Experiences in yarn</div>
+          <h1>Art of Crochet experiences for <span>teams, schools & communities</span></h1>
           <p>
-            Curriculum-aligned crochet workshops for K–12 that build fine motor skills,
-            focus, social connection, and creative confidence.
+            Hands-on crochet sessions that combine creativity, culture, and calm. Designed for
+            corporate wellbeing, education, and community spaces.
           </p>
           <div class="hero-actions">
-            <a href="#programs" class="btn-dark">See programs</a>
-            <a href="#booking" class="btn-outline">Request dates</a>
+            <a href="#segments" class="btn-dark">Explore experiences</a>
+            <a href="#booking" class="btn-outline">Request a booking</a>
           </div>
-          <div class="hero-pills">
-            <div class="hero-pill">
-              <div class="hero-pill-dot"></div>
-              <span>K–3 • 4–8 • 9–12 streams</span>
-            </div>
-            <div class="hero-pill">
-              <div class="hero-pill-dot"></div>
-              <span>30–90 minute formats</span>
-            </div>
-            <div class="hero-pill">
-              <div class="hero-pill-dot"></div>
-              <span>Materials included</span>
-            </div>
+          <div class="hero-tags">
+            <span class="hero-tag">Team wellbeing & offsites</span>
+            <span class="hero-tag">Curriculum-friendly school visits</span>
+            <span class="hero-tag">Pop-ups for markets & festivals</span>
           </div>
         </div>
         <div class="hero-images">
-          <div class="hero-img-box"><span>Student group crocheting – replace with real photo</span></div>
-          <div class="hero-img-box"><span>Close-up of yarn and hooks</span></div>
-          <div class="hero-img-box"><span>Smiling student with finished piece</span></div>
-          <div class="hero-img-box"><span>Teacher guiding students</span></div>
-          <div class="hero-img-box"><span>Hands creating simple patterns</span></div>
-          <div class="hero-img-box"><span>Diverse group in a bright classroom</span></div>
+          <div class="hero-img-box">
+            <div class="hero-img-top">Workplace reset</div>
+            <div class="hero-img-tag">Colleagues learning simple stitches together in a cozy breakout space.</div>
+          </div>
+          <div class="hero-img-box">
+            <div class="hero-img-top">Schools</div>
+            <div class="hero-img-tag">Students focused on colour, pattern, and mindful making.</div>
+          </div>
+          <div class="hero-img-box">
+            <div class="hero-img-top">Community</div>
+            <div class="hero-img-tag">Neighbours crocheting at a market, sharing conversation and culture.</div>
+          </div>
+          <div class="hero-img-box">
+            <div class="hero-img-top">Culture & style</div>
+            <div class="hero-img-tag">Diverse people in crochet pieces that feel modern, cool, and wearable.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trusted by -->
+    <section class="trusted">
+      <div class="container">
+        <div class="trusted-row">
+          <span class="trusted-label">Designed for</span>
+          <span class="trusted-pill">Corporate & HR teams</span>
+          <span class="trusted-pill">K–12 schools</span>
+          <span class="trusted-pill">Colleges & universities</span>
+          <span class="trusted-pill">Community & cultural spaces</span>
         </div>
       </div>
     </section>
 
     <div class="bar"></div>
 
-    <!-- About -->
-    <section id="about">
-      <div class="container two-col">
-        <div class="card-dark">
-          <h2 class="section-title" style="color: white; margin-bottom: 0.75rem;">
-            About AOC for Schools
-          </h2>
-          <p style="font-size: 0.95rem; color: #e5e7eb;">
-            We partner with educators to deliver joyful, accessible making experiences that
-            support SEL (social-emotional learning) and align to arts and health outcomes.
-          </p>
-          <div class="chips">
-            <span class="chip chip-orange">Creativity</span>
-            <span class="chip">Focus</span>
-            <span class="chip">Inclusion</span>
-          </div>
-        </div>
-        <div style="display: grid; gap: 1rem;">
-          <div class="card-light">
-            <h3>Class-ready</h3>
-            <p>
-              We bring all tools and yarns; students keep their small projects. Options for
-              sensory-friendly materials.
+    <!-- Who we work with -->
+    <section id="segments">
+      <div class="container">
+        <div class="section-kicker">Offerings</div>
+        <h2 class="section-title">Where Art of Crochet fits</h2>
+        <div class="segments-grid">
+          <div class="segment-card">
+            <div class="segment-label">Segment</div>
+            <div class="segment-title">Workplaces & corporate</div>
+            <p class="segment-body">
+              Onsite sessions and pop-up crochet lounges that support mental health, DEI,
+              and team connection.
+            </p>
+            <p class="segment-links">
+              Learn more in <a href="#workplaces">Workplace experiences ↓</a>
             </p>
           </div>
-          <div class="card-light">
-            <h3>Flexible delivery</h3>
-            <ul>
-              <li>In-class workshops</li>
-              <li>Library or gym stations</li>
-              <li>After-school clubs</li>
-            </ul>
+          <div class="segment-card">
+            <div class="segment-label">Segment</div>
+            <div class="segment-title">Schools & education</div>
+            <p class="segment-body">
+              Curriculum-friendly visits for K–12 and post-secondary, blending fine motor
+              skills, focus, and creative expression.
+            </p>
+            <p class="segment-links">
+              Learn more in <a href="#schools">School experiences ↓</a>
+            </p>
+          </div>
+          <div class="segment-card">
+            <div class="segment-label">Segment</div>
+            <div class="segment-title">Community & culture</div>
+            <p class="segment-body">
+              Crochet activations for markets, galleries, and festivals that celebrate
+              craft, identity, and community care.
+            </p>
+            <p class="segment-links">
+              Learn more in <a href="#community">Community experiences ↓</a>
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Programs -->
-    <section id="programs">
-      <div class="container">
-        <h2 class="section-title">Programs</h2>
+    <!-- Workplaces -->
+    <section id="workplaces">
+      <div class="container two-col">
+        <div class="card-dark">
+          <h3>Workplace & corporate experiences</h3>
+          <p>
+            AOC brings calm, tactile making into boardrooms, offsites, and lunch-and-learns.
+            Sessions are designed to pair with your mental health, DEI, and culture initiatives.
+          </p>
+          <div class="chips">
+            <span class="chip chip-orange">Wellbeing activations</span>
+            <span class="chip">DEI & culture</span>
+            <span class="chip">Offsites & retreats</span>
+            <span class="chip">Conference crochet lounge</span>
+          </div>
+        </div>
         <div class="programs-grid">
-          <article class="program-card">
-            <div class="program-image">
-              K–3 visuals – shapes, color, big hooks (replace with real photo)
-            </div>
-            <div class="program-body">
-              <div class="program-title">K–3: Shapes &amp; Patterns</div>
-              <p class="program-text">
-                Fine motor play with big hooks and soft yarns. Counting, shapes, and color
-                patterns.
-              </p>
-              <p class="program-duration">Duration: 30–45 minutes</p>
-            </div>
-            <div class="program-footer">
-              <a href="#booking" class="btn-small">Request booking</a>
-            </div>
-          </article>
-
-          <article class="program-card">
-            <div class="program-image">
-              Grades 4–8 group working together (replace with real photo)
-            </div>
-            <div class="program-body">
-              <div class="program-title">Grades 4–8: Maker Basics</div>
-              <p class="program-text">
-                Foundational stitches, creative choice-boards, and teamwork mini-projects.
-              </p>
-              <p class="program-duration">Duration: 45–60 minutes</p>
-            </div>
-            <div class="program-footer">
-              <a href="#booking" class="btn-small">Request booking</a>
-            </div>
-          </article>
-
-          <article class="program-card">
-            <div class="program-image">
-              High school design lab – thoughtful, calm (replace with real photo)
-            </div>
-            <div class="program-body">
-              <div class="program-title">Grades 9–12: Design Lab</div>
-              <p class="program-text">
-                Mindful making + design thinking: plan, prototype, and finish a simple piece.
-              </p>
-              <p class="program-duration">Duration: 60–90 minutes</p>
-            </div>
-            <div class="program-footer">
-              <a href="#booking" class="btn-small">Request booking</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Benefits -->
-    <section id="benefits">
-      <div class="container">
-        <h2 class="section-title">Student benefits</h2>
-        <div class="benefits-grid">
-          <div class="benefit-card">
-            <div class="benefit-icon">🤝</div>
-            <div class="benefit-title">SEL &amp; belonging</div>
-            <div class="benefit-text">
-              Shared making fosters empathy, patience, and peer support.
-            </div>
+          <div class="program-card offwhite">
+            <div class="program-tag">Teams</div>
+            <div class="program-title">Team reset session</div>
+            <p class="program-text">
+              A gentle, guided crochet experience that helps teams slow down, chat, and create
+              something tangible together.
+            </p>
+            <p class="program-meta">Ideal for 60–90 minutes • 10–40 people</p>
           </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">🧘</div>
-            <div class="benefit-title">Focus &amp; regulation</div>
-            <div class="benefit-text">
-              Repetitive motions calm the nervous system and support attention.
-            </div>
+          <div class="program-card offwhite">
+            <div class="program-tag">Culture & DEI</div>
+            <div class="program-title">Craft, culture & conversation</div>
+            <p class="program-text">
+              A facilitated space to explore identity, creativity, and care while learning
+              simple stitches and motifs.
+            </p>
+            <p class="program-meta">Pairs well with ERGs & wellbeing programs</p>
           </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">✨</div>
-            <div class="benefit-title">Creativity &amp; pride</div>
-            <div class="benefit-text">
-              Tangible outcomes build confidence and showcase student voice.
-            </div>
-          </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">🧩</div>
-            <div class="benefit-title">Teacher-friendly</div>
-            <div class="benefit-text">
-              We handle setup/cleanup and provide simple take-home guides.
-            </div>
+          <div class="program-card offwhite">
+            <div class="program-tag">Events</div>
+            <div class="program-title">Crochet lounge</div>
+            <p class="program-text">
+              A drop-in crochet area for conferences and summits – think calming corner, cool
+              yarn, and quiet connection.
+            </p>
+            <p class="program-meta">Flexible timing • All materials included</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Safety -->
-    <section id="safety">
+    <!-- Schools -->
+    <section id="schools">
+      <div class="container two-col">
+        <div class="card-dark">
+          <h3>School & youth experiences</h3>
+          <p>
+            For classrooms, clubs, and campus events, AOC workshops support focus, fine motor
+            skills, and social-emotional learning in a way that feels modern and fun.
+          </p>
+          <div class="chips">
+            <span class="chip chip-orange">K–12 friendly</span>
+            <span class="chip">After-school clubs</span>
+            <span class="chip">Campus wellness</span>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="program-tag">K–5</div>
+            <div class="program-title">Shapes & colour play</div>
+            <p class="program-text">
+              Big hooks, soft yarn, and simple patterns that support counting, colour, and
+              creativity.
+            </p>
+            <p class="program-meta">30–45 minutes • In-class or library</p>
+          </div>
+          <div class="program-card">
+            <div class="program-tag">Grades 6–12</div>
+            <div class="program-title">Mindful making studio</div>
+            <p class="program-text">
+              Students learn base stitches, then design a small piece that reflects their own
+              style and story.
+            </p>
+            <p class="program-meta">45–75 minutes • Arts, wellness or club</p>
+          </div>
+          <div class="program-card">
+            <div class="program-tag">Post-secondary</div>
+            <div class="program-title">Campus crochet pop-up</div>
+            <p class="program-text">
+              A drop-in activation for residence, student wellness, or orientation weeks.
+            </p>
+            <p class="program-meta">Flexible • Lounge-style setup</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community -->
+    <section id="community">
+      <div class="container two-col">
+        <div class="card-dark">
+          <h3>Community, culture & public spaces</h3>
+          <p>
+            From markets to galleries, AOC creates crochet activations that invite people to
+            slow down, connect, and celebrate craft in a way that feels stylish, inclusive,
+            and welcoming.
+          </p>
+          <div class="chips">
+            <span class="chip chip-orange">Markets & festivals</span>
+            <span class="chip">Galleries & museums</span>
+            <span class="chip">Libraries</span>
+          </div>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="program-tag">Public</div>
+            <div class="program-title">Drop-in crochet bar</div>
+            <p class="program-text">
+              Simple patterns and ready-to-go kits so visitors can join for five minutes or
+              stay for an hour.
+            </p>
+            <p class="program-meta">Great for high-traffic events</p>
+          </div>
+          <div class="program-card">
+            <div class="program-tag">Culture</div>
+            <div class="program-title">Story stitches</div>
+            <p class="program-text">
+              A facilitated session that weaves storytelling, identity, and crochet together
+              for small groups.
+            </p>
+            <p class="program-meta">Ideal for 8–20 participants</p>
+          </div>
+          <div class="program-card">
+            <div class="program-tag">Youth & families</div>
+            <div class="program-title">Family crochet corner</div>
+            <p class="program-text">
+              Multi-generational making space where kids, caregivers, and elders can try
+              crochet side by side.
+            </p>
+            <p class="program-meta">Flexible formats • All materials included</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section>
       <div class="container">
-        <h2 class="section-title">Safety &amp; accessibility</h2>
-        <div class="safety-card">
-          <ul>
-            <li>All facilitators are background-checked and trained in youth engagement.</li>
-            <li>
-              Blunt kid-safe tools and age-appropriate yarns; optional sensory-friendly kits.
-            </li>
-            <li>
-              All-gender, all-ability inclusive approach with visual and verbal instruction.
-            </li>
-            <li>Teacher guides and risk assessment available upon booking.</li>
-          </ul>
+        <div class="section-kicker">Process</div>
+        <h2 class="section-title">How AOC experiences work</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">Step 01</div>
+            <div class="step-title">Share your space & goals</div>
+            <p>
+              Tell us who you’re hosting (corporate, school, community), how many people, and
+              what you’d like them to feel when they leave.
+            </p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">Step 02</div>
+            <div class="step-title">We design a session</div>
+            <p>
+              We recommend the right format, length, and difficulty level. All yarn, tools,
+              and setup is included.
+            </p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">Step 03</div>
+            <div class="step-title">You host, we facilitate</div>
+            <p>
+              We arrive early to set up, guide the experience, and leave you with a calm,
+              connected group (and some very cool crochet).
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -761,36 +916,43 @@
     <!-- Pricing -->
     <section id="pricing">
       <div class="container">
-        <h2 class="section-title">Pricing (guideline)</h2>
+        <div class="section-kicker">Guideline</div>
+        <h2 class="section-title">Typical experience packages</h2>
         <div class="pricing-grid">
           <div class="pricing-card">
-            <div class="pricing-name">Single class</div>
-            <div class="pricing-price">$350</div>
+            <div class="pricing-label">Starter</div>
+            <div class="pricing-name">Single session</div>
+            <div class="pricing-price">From $350</div>
             <div class="pricing-details">
-              Up to 30 students • 45–60 minutes • All materials included.
+              A focused session for one group. Perfect for pilot programs, ERG events, or a
+              single classroom.
             </div>
-            <a href="#booking" class="btn-black">Book</a>
+            <a href="#booking" class="btn-black">Chat about a pilot</a>
           </div>
           <div class="pricing-card">
-            <div class="pricing-name">Half day</div>
-            <div class="pricing-price">$950</div>
+            <div class="pricing-label">Popular</div>
+            <div class="pricing-name">Half-day experiences</div>
+            <div class="pricing-price">From $950</div>
             <div class="pricing-details">
-              Up to 3 classes • Rotation model • Materials + setup.
+              Several back-to-back sessions or a crochet lounge. Ideal for workplace
+              campaigns and school wellness days.
             </div>
-            <a href="#booking" class="btn-black">Book</a>
+            <a href="#booking" class="btn-black">Plan a half-day</a>
           </div>
           <div class="pricing-card">
-            <div class="pricing-name">Full day</div>
-            <div class="pricing-price">$1,650</div>
+            <div class="pricing-label">Immersive</div>
+            <div class="pricing-name">Full-day & series</div>
+            <div class="pricing-price">Custom</div>
             <div class="pricing-details">
-              Up to 6 classes • School-wide activation • Materials + setup.
+              Full-day activations, festivals, or multi-week series tailored to your community
+              and goals.
             </div>
-            <a href="#booking" class="btn-black">Book</a>
+            <a href="#booking" class="btn-black">Request a custom quote</a>
           </div>
         </div>
         <p class="pricing-note">
-          Travel outside metro areas may add mileage. Subsidy options available for
-          qualifying schools.
+          Pricing varies by location, group size, and materials. Sliding-scale options may be
+          available for community partners.
         </p>
       </div>
     </section>
@@ -799,24 +961,28 @@
     <section id="booking">
       <div class="container booking-grid">
         <div>
-          <h2 class="section-title">Book a school workshop</h2>
+          <div class="section-kicker">Booking</div>
+          <h2 class="section-title">Request an Art of Crochet experience</h2>
           <p style="font-size: 0.95rem; color: #4b5563; max-width: 30rem;">
-            Tell us grade level(s), preferred dates, and any accessibility needs—our team will
-            confirm details and send a simple toolkit.
+            Share a few details about your workplace, school, or community space. We’ll
+            follow up with date options, a suggested format, and clear pricing.
           </p>
           <form class="booking-form">
-            <input placeholder="Contact name & school" />
+            <input placeholder="Name & organization" />
             <input placeholder="Email" type="email" />
-            <textarea
-              rows="4"
-              placeholder="Grades, number of classes, preferred dates"
-            ></textarea>
-            <button type="button">Request dates</button>
+            <input placeholder="Location (city / neighbourhood)" />
+            <textarea rows="4" placeholder="Type of group (corporate, school, community), approx. size, preferred dates"></textarea>
+            <button type="button">Send request</button>
           </form>
         </div>
         <div class="booking-image">
-          Schools workshop cover visual – replace with a real classroom photo when you’re
-          ready.
+          <h3>What to expect after you reach out</h3>
+          <ul>
+            <li>A friendly email within 2–3 business days</li>
+            <li>A suggested experience format based on your goals</li>
+            <li>Clear pricing with what’s included (and what you provide)</li>
+            <li>Options to customize for accessibility, culture, and vibe</li>
+          </ul>
         </div>
       </div>
       <div class="bar"></div>
