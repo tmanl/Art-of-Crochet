@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Art of Crochet (AOC) – Schools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --aoc-orange: #C55A20;
+      --aoc-gold: #D3A04E;
+      --aoc-black: #0B0B0B;
+      --aoc-cream: #F4EFE8;
+      --aoc-brown: #6E4A38;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--aoc-cream);
+      color: #111827;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Layout helpers */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-box {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      background: var(--aoc-black);
+      font-size: 0.875rem;
+    }
+
+    .nav-title-main {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      color: var(--aoc-black);
+    }
+
+    .nav-title-sub {
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+
+    .nav-cta {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      color: white;
+      background: var(--aoc-orange);
+      font-weight: 500;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--aoc-black);
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      color: var(--aoc-orange);
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 1.5rem;
+      max-width: 34rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-dark {
+      padding: 0.75rem 1.2rem;
+      border-radius: 999px;
+      background: var(--aoc-black);
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn-outline {
+      padding: 0.75rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid var(--aoc-black);
+      color: var(--aoc-black);
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: transparent;
+    }
+
+    .hero-pills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: #4b5563;
+    }
+
+    .hero-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero-pill-dot {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: var(--aoc-gold);
+    }
+
+    /* Hero images grid */
+    .hero-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .hero-img-box {
+      position: relative;
+      width: 100%;
+      padding-bottom: 125%;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #e5e7eb;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    }
+
+    .hero-img-box span {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #6b7280;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    /* Gradient bar */
+    .bar {
+      height: 0.4rem;
+      width: 100%;
+      background: linear-gradient(90deg, var(--aoc-orange), var(--aoc-gold));
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 0;
+    }
+
+    h2.section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--aoc-black);
+      margin-bottom: 1.75rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .card-dark {
+      background: var(--aoc-black);
+      color: white;
+      padding: 1.75rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .chip-orange {
+      background: var(--aoc-orange);
+      border-color: var(--aoc-orange);
+    }
+
+    .card-light {
+      background: white;
+      border-radius: 1.3rem;
+      padding: 1.25rem 1.5rem;
+      border: 1px solid rgba(110, 74, 56, 0.3);
+    }
+
+    .card-light h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--aoc-black);
+      margin-bottom: 0.4rem;
+    }
+
+    .card-light p, .card-light li {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .card-light ul {
+      padding-left: 1.1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Programs grid */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .program-card {
+      background: white;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(211, 160, 78, 0.7);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .program-image {
+      background: #e5e7eb;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .program-body {
+      padding: 1.25rem 1.5rem 1rem 1.5rem;
+      flex: 1;
+    }
+
+    .program-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--aoc-black);
+      margin-bottom: 0.35rem;
+    }
+
+    .program-text {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.35rem;
+    }
+
+    .program-duration {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .program-footer {
+      padding: 0 1.5rem 1.25rem 1.5rem;
+    }
+
+    .btn-small {
+      display: inline-block;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      background: var(--aoc-orange);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* Benefits */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .benefit-card {
+      background: white;
+      border-radius: 1.4rem;
+      border: 1px solid rgba(211, 160, 78, 0.7);
+      padding: 1.1rem 1.25rem;
+    }
+
+    .benefit-icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .benefit-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--aoc-black);
+      margin-bottom: 0.25rem;
+    }
+
+    .benefit-text {
+      font-size: 0.86rem;
+      color: #4b5563;
+    }
+
+    /* Safety card */
+    .safety-card {
+      background: white;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(211, 160, 78, 0.7);
+      padding: 1.75rem;
+    }
+
+    .safety-card ul {
+      margin-top: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 1.4rem;
+      border: 1px solid rgba(211, 160, 78, 0.7);
+      padding: 1.4rem 1.5rem;
+    }
+
+    .pricing-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--aoc-black);
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--aoc-orange);
+      margin-bottom: 0.4rem;
+    }
+
+    .pricing-details {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-black {
+      display: inline-block;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      background: var(--aoc-black);
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .pricing-note {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    /* Booking */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .booking-form {
+      display: grid;
+      gap: 0.7rem;
+      margin-top: 1.2rem;
+    }
+
+    .booking-form input,
+    .booking-form textarea {
+      border-radius: 0.8rem;
+      border: 1px solid #d1d5db;
+      padding: 0.75rem 0.9rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    .booking-form button {
+      border-radius: 0.8rem;
+      border: none;
+      padding: 0.8rem 1.1rem;
+      background: var(--aoc-orange);
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .booking-image {
+      border-radius: 1.6rem;
+      background: #e5e7eb;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
+    /* Footer */
+    footer {
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      padding: 1.2rem 0;
+      margin-top: 1rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none; /* keep it simple on mobile */
+      }
+      .hero-grid,
+      .two-col,
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 3rem;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="nav-left">
+        <div class="logo-box">AOC</div>
+        <div>
+          <div class="nav-title-main">ART OF CROCHET</div>
+          <div class="nav-title-sub">Creativity • Community • Wellbeing</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#benefits">Benefits</a>
+        <a href="#safety">Safety</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#booking" class="nav-cta">Book a visit</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <h1>Hands-on making for <span>schools</span></h1>
+          <p>
+            Curriculum-aligned crochet workshops for K–12 that build fine motor skills,
+            focus, social connection, and creative confidence.
+          </p>
+          <div class="hero-actions">
+            <a href="#programs" class="btn-dark">See programs</a>
+            <a href="#booking" class="btn-outline">Request dates</a>
+          </div>
+          <div class="hero-pills">
+            <div class="hero-pill">
+              <div class="hero-pill-dot"></div>
+              <span>K–3 • 4–8 • 9–12 streams</span>
+            </div>
+            <div class="hero-pill">
+              <div class="hero-pill-dot"></div>
+              <span>30–90 minute formats</span>
+            </div>
+            <div class="hero-pill">
+              <div class="hero-pill-dot"></div>
+              <span>Materials included</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-images">
+          <div class="hero-img-box"><span>Student group crocheting – replace with real photo</span></div>
+          <div class="hero-img-box"><span>Close-up of yarn and hooks</span></div>
+          <div class="hero-img-box"><span>Smiling student with finished piece</span></div>
+          <div class="hero-img-box"><span>Teacher guiding students</span></div>
+          <div class="hero-img-box"><span>Hands creating simple patterns</span></div>
+          <div class="hero-img-box"><span>Diverse group in a bright classroom</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="bar"></div>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container two-col">
+        <div class="card-dark">
+          <h2 class="section-title" style="color: white; margin-bottom: 0.75rem;">
+            About AOC for Schools
+          </h2>
+          <p style="font-size: 0.95rem; color: #e5e7eb;">
+            We partner with educators to deliver joyful, accessible making experiences that
+            support SEL (social-emotional learning) and align to arts and health outcomes.
+          </p>
+          <div class="chips">
+            <span class="chip chip-orange">Creativity</span>
+            <span class="chip">Focus</span>
+            <span class="chip">Inclusion</span>
+          </div>
+        </div>
+        <div style="display: grid; gap: 1rem;">
+          <div class="card-light">
+            <h3>Class-ready</h3>
+            <p>
+              We bring all tools and yarns; students keep their small projects. Options for
+              sensory-friendly materials.
+            </p>
+          </div>
+          <div class="card-light">
+            <h3>Flexible delivery</h3>
+            <ul>
+              <li>In-class workshops</li>
+              <li>Library or gym stations</li>
+              <li>After-school clubs</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs -->
+    <section id="programs">
+      <div class="container">
+        <h2 class="section-title">Programs</h2>
+        <div class="programs-grid">
+          <article class="program-card">
+            <div class="program-image">
+              K–3 visuals – shapes, color, big hooks (replace with real photo)
+            </div>
+            <div class="program-body">
+              <div class="program-title">K–3: Shapes &amp; Patterns</div>
+              <p class="program-text">
+                Fine motor play with big hooks and soft yarns. Counting, shapes, and color
+                patterns.
+              </p>
+              <p class="program-duration">Duration: 30–45 minutes</p>
+            </div>
+            <div class="program-footer">
+              <a href="#booking" class="btn-small">Request booking</a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-image">
+              Grades 4–8 group working together (replace with real photo)
+            </div>
+            <div class="program-body">
+              <div class="program-title">Grades 4–8: Maker Basics</div>
+              <p class="program-text">
+                Foundational stitches, creative choice-boards, and teamwork mini-projects.
+              </p>
+              <p class="program-duration">Duration: 45–60 minutes</p>
+            </div>
+            <div class="program-footer">
+              <a href="#booking" class="btn-small">Request booking</a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-image">
+              High school design lab – thoughtful, calm (replace with real photo)
+            </div>
+            <div class="program-body">
+              <div class="program-title">Grades 9–12: Design Lab</div>
+              <p class="program-text">
+                Mindful making + design thinking: plan, prototype, and finish a simple piece.
+              </p>
+              <p class="program-duration">Duration: 60–90 minutes</p>
+            </div>
+            <div class="program-footer">
+              <a href="#booking" class="btn-small">Request booking</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="benefits">
+      <div class="container">
+        <h2 class="section-title">Student benefits</h2>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🤝</div>
+            <div class="benefit-title">SEL &amp; belonging</div>
+            <div class="benefit-text">
+              Shared making fosters empathy, patience, and peer support.
+            </div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🧘</div>
+            <div class="benefit-title">Focus &amp; regulation</div>
+            <div class="benefit-text">
+              Repetitive motions calm the nervous system and support attention.
+            </div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">✨</div>
+            <div class="benefit-title">Creativity &amp; pride</div>
+            <div class="benefit-text">
+              Tangible outcomes build confidence and showcase student voice.
+            </div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🧩</div>
+            <div class="benefit-title">Teacher-friendly</div>
+            <div class="benefit-text">
+              We handle setup/cleanup and provide simple take-home guides.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Safety -->
+    <section id="safety">
+      <div class="container">
+        <h2 class="section-title">Safety &amp; accessibility</h2>
+        <div class="safety-card">
+          <ul>
+            <li>All facilitators are background-checked and trained in youth engagement.</li>
+            <li>
+              Blunt kid-safe tools and age-appropriate yarns; optional sensory-friendly kits.
+            </li>
+            <li>
+              All-gender, all-ability inclusive approach with visual and verbal instruction.
+            </li>
+            <li>Teacher guides and risk assessment available upon booking.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+      <div class="container">
+        <h2 class="section-title">Pricing (guideline)</h2>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="pricing-name">Single class</div>
+            <div class="pricing-price">$350</div>
+            <div class="pricing-details">
+              Up to 30 students • 45–60 minutes • All materials included.
+            </div>
+            <a href="#booking" class="btn-black">Book</a>
+          </div>
+          <div class="pricing-card">
+            <div class="pricing-name">Half day</div>
+            <div class="pricing-price">$950</div>
+            <div class="pricing-details">
+              Up to 3 classes • Rotation model • Materials + setup.
+            </div>
+            <a href="#booking" class="btn-black">Book</a>
+          </div>
+          <div class="pricing-card">
+            <div class="pricing-name">Full day</div>
+            <div class="pricing-price">$1,650</div>
+            <div class="pricing-details">
+              Up to 6 classes • School-wide activation • Materials + setup.
+            </div>
+            <a href="#booking" class="btn-black">Book</a>
+          </div>
+        </div>
+        <p class="pricing-note">
+          Travel outside metro areas may add mileage. Subsidy options available for
+          qualifying schools.
+        </p>
+      </div>
+    </section>
+
+    <!-- Booking -->
+    <section id="booking">
+      <div class="container booking-grid">
+        <div>
+          <h2 class="section-title">Book a school workshop</h2>
+          <p style="font-size: 0.95rem; color: #4b5563; max-width: 30rem;">
+            Tell us grade level(s), preferred dates, and any accessibility needs—our team will
+            confirm details and send a simple toolkit.
+          </p>
+          <form class="booking-form">
+            <input placeholder="Contact name & school" />
+            <input placeholder="Email" type="email" />
+            <textarea
+              rows="4"
+              placeholder="Grades, number of classes, preferred dates"
+            ></textarea>
+            <button type="button">Request dates</button>
+          </form>
+        </div>
+        <div class="booking-image">
+          Schools workshop cover visual – replace with a real classroom photo when you’re
+          ready.
+        </div>
+      </div>
+      <div class="bar"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Art of Crochet (AOC). All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
