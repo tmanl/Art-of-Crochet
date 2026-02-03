@@ -2,473 +2,609 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AOC — Art of Crochet (Powered by Legin Knits)</title>
-
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AOC — Art of Crochet</title>
+  <meta name="description" content="Art of Crochet experiences for teams, schools & communities." />
 
   <style>
     :root{
-      --aoc-green:#81A473; /* earthy green accent */
-      --aoc-yellow:#FBDA03; /* highlight quotes */
-      --aoc-red:#5A4A40;    /* emphasis / “what not to do” */
-      --aoc-black:#0B0B0B;
-      --aoc-white:#FFFFFF;
+      --bg:#ffffff;
+      --text:#0b0b0b;
+      --muted:#5a5a5a;
+
+      /* From your notes */
+      --accent:#81A473;          /* earthy green (coral) */
+      --yellow:#fbda03;          /* highlight quote */
+      --red:#e23b3b;             /* emphasis (what not to do) */
+      --good:#22a06b;            /* “goodness” emphasis */
+      --line:rgba(11,11,11,.12);
+
+      --radius:22px;
+      --shadow: 0 18px 40px rgba(0,0,0,.10);
+      --shadowSoft: 0 10px 28px rgba(0,0,0,.08);
+
+      --max: 1120px;
     }
 
-    /* Subtle “dharma yoga” vibe: clean + airy + gentle movement */
-    .moving-grid {
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(11,11,11,0.07) 1px, transparent 0);
-      background-size: 22px 22px;
-      animation: drift 18s linear infinite;
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.80);
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid var(--line);
     }
-    @keyframes drift {
-      0%   { background-position: 0 0; }
-      100% { background-position: 180px 60px; }
+    .topbar .inner{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo{
+      width:40px;height:40px;border-radius:14px;
+      background:var(--text);color:#fff;
+      display:grid;place-items:center;
+      font-weight:800;letter-spacing:.08em;font-size:13px;
+    }
+    .brand h1{margin:0;font-size:13px;letter-spacing:.22em}
+    .brand p{margin:2px 0 0 0;font-size:12px;color:var(--muted)}
+    .nav{display:flex;align-items:center;gap:18px;font-size:14px}
+    .nav a{opacity:.84;text-decoration:none}
+    .nav a:hover{opacity:1}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 14px;border-radius:999px;border:1px solid var(--text);
+      text-decoration:none;font-weight:650;
+      transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+      background:#fff;
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--shadowSoft)}
+    .btn.primary{background:var(--text);color:#fff;border-color:var(--text)}
+    .btn.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .btn.ghost{border-color:var(--line);color:var(--text)}
+
+    /* Hero */
+    .hero{
+      position:relative;
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+    }
+    /* subtle left-to-right motion vibe: diagonal bands */
+    .hero::before{
+      content:"";
+      position:absolute;inset:-40%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(129,164,115,.20), transparent 50%),
+        radial-gradient(circle at 80% 35%, rgba(251,218,3,.18), transparent 50%),
+        radial-gradient(circle at 35% 85%, rgba(226,59,59,.14), transparent 55%);
+      transform:rotate(-8deg);
+      pointer-events:none;
+    }
+    .heroGrid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:26px;
+      padding:34px 0 28px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns:1fr; padding-top:22px}
+      .nav{display:none}
     }
 
-    /* Video overlay for readability */
-    .video-overlay {
-      background: linear-gradient(
-        180deg,
-        rgba(11,11,11,0.70) 0%,
-        rgba(11,11,11,0.45) 45%,
-        rgba(11,11,11,0.65) 100%
-      );
+    .kicker{
+      font-size:12px;letter-spacing:.22em;
+      text-transform:uppercase;color:var(--muted);
+    }
+    .title{
+      margin:10px 0 0 0;
+      font-size:50px;line-height:1.02;letter-spacing:-.02em;
+      font-weight:900;
+    }
+    @media (max-width: 520px){ .title{font-size:38px} }
+    .sub{
+      margin:14px 0 0 0;
+      font-size:18px;line-height:1.55;color:rgba(11,11,11,.78);
+      max-width:48ch;
     }
 
-    .pill {
-      border: 1px solid rgba(11,11,11,0.12);
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(10px);
+    .rgbWords .t{color:var(--red);font-weight:900}
+    .rgbWords .s{color:var(--yellow);font-weight:900; text-shadow:0 1px 0 rgba(0,0,0,.08)}
+    .rgbWords .c{color:var(--good);font-weight:900}
+
+    .pillRow{
+      margin-top:18px;
+      display:flex;flex-wrap:wrap;gap:10px;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:10px;
+      border:1px solid var(--line);
+      background:#fff;
+      padding:10px 12px;border-radius:999px;
+      font-size:13px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+    }
+    .dot{width:9px;height:9px;border-radius:99px;background:var(--accent)}
+    .dot.red{background:var(--red)}
+    .dot.yellow{background:var(--yellow)}
+    .dot.good{background:var(--good)}
+
+    .heroActions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+
+    .videoCard{
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:#000;
+      border:1px solid rgba(0,0,0,.18);
+      min-height:320px;
+    }
+    .videoCard iframe{
+      width:100%;height:100%;
+      min-height:320px;
+      border:0;
+    }
+    .stripe{
+      height:6px;width:100%;
+      background: linear-gradient(90deg, var(--accent), rgba(129,164,115,.25), var(--yellow));
     }
 
-    .highlight-yellow {
-      background: var(--aoc-yellow);
-      padding: 0.08em 0.3em;
-      border-radius: 0.35em;
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
+    /* Sections */
+    section{padding:56px 0;border-bottom:1px solid var(--line)}
+    .sectionHead{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+      margin-bottom:18px;
+    }
+    .sectionHead h2{
+      margin:0;font-size:30px;letter-spacing:-.02em;font-weight:900;
+    }
+    .sectionHead p{margin:0;color:var(--muted);max-width:70ch}
+
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width: 860px){ .grid2{grid-template-columns:1fr} }
+
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    @media (max-width: 980px){ .cards{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width: 520px){ .cards{grid-template-columns:1fr} }
+
+    .card{
+      background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+      padding:18px;box-shadow: 0 12px 26px rgba(0,0,0,.06);
+      transition: transform .14s ease, box-shadow .14s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:hover{transform:translateY(-2px);box-shadow: 0 18px 40px rgba(0,0,0,.10)}
+    .card h3{margin:0 0 8px 0;font-size:18px;font-weight:850}
+    .card p{margin:0;color:rgba(11,11,11,.72);line-height:1.55}
+
+    /* Offerings: subtle “left to right” motion hint near bottom */
+    .card::after{
+      content:"";
+      position:absolute;left:-30%;bottom:-40%;
+      width:140%;height:90%;
+      background: linear-gradient(90deg, rgba(129,164,115,.0), rgba(129,164,115,.18));
+      transform:rotate(8deg);
+      opacity:.55;
+      pointer-events:none;
     }
 
-    /* Simple counter animation */
-    .count {
-      font-variant-numeric: tabular-nums;
-      letter-spacing: -0.02em;
+    /* Quote highlight */
+    .quoteBlock{
+      border-radius:var(--radius);
+      background:var(--accent);
+      color:#fff;
+      padding:22px;
+      box-shadow:var(--shadowSoft);
+      position:relative;
+      overflow:hidden;
     }
+    .quoteBlock::before{
+      content:"";
+      position:absolute;inset:-30%;
+      background: radial-gradient(circle at 25% 25%, rgba(251,218,3,.35), transparent 55%);
+      transform:rotate(-6deg);
+      pointer-events:none;
+    }
+    .quote{
+      position:relative;
+      display:inline-block;
+      background:var(--yellow);
+      color:#111;
+      font-weight:900;
+      padding:10px 12px;
+      border-radius:16px;
+      box-shadow: 0 10px 18px rgba(0,0,0,.18);
+      margin-bottom:12px;
+    }
+    .quoteText{
+      position:relative;
+      margin:0;
+      font-size:18px;line-height:1.55;
+      color:rgba(255,255,255,.92);
+      max-width:78ch;
+    }
+
+    /* Packages */
+    .packageGrid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
+    @media (max-width: 980px){ .packageGrid{grid-template-columns:1fr} }
+
+    .priceCard{
+      background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+      padding:20px;box-shadow:var(--shadowSoft);
+    }
+    .priceCard h3{margin:0 0 6px 0;font-size:18px;font-weight:900}
+    .price{
+      font-size:28px;font-weight:950;letter-spacing:-.02em;margin:0;color:var(--text)
+    }
+    .fine{margin:8px 0 0 0;color:rgba(11,11,11,.72);line-height:1.5}
+    .tagRow{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+    .tag{
+      font-size:12px;font-weight:750;
+      border-radius:999px;padding:8px 10px;border:1px solid var(--line);
+      background:#fff;
+    }
+
+    .list{
+      margin:10px 0 0 0;padding-left:16px;color:rgba(11,11,11,.72);line-height:1.6
+    }
+    .list strong{color:var(--text)}
+
+    /* Counter */
+    .counterCard{
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:#fff;
+      padding:18px;
+      box-shadow:var(--shadowSoft);
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+    }
+    .counterNum{
+      font-size:42px;line-height:1;font-weight:950;letter-spacing:-.03em;
+    }
+    .counterMeta{color:rgba(11,11,11,.72);line-height:1.4}
+    .counterMeta b{color:var(--text)}
+    @media (max-width: 620px){
+      .counterCard{flex-direction:column;align-items:flex-start}
+      .counterNum{font-size:38px}
+    }
+
+    /* FAQ */
+    details{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 14px;
+      background:#fff;
+      box-shadow: 0 10px 20px rgba(0,0,0,.05);
+    }
+    summary{cursor:pointer;font-weight:850}
+    details p{margin:10px 0 0 0;color:rgba(11,11,11,.72);line-height:1.55}
+
+    footer{padding:26px 0}
+    footer .inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .small{font-size:13px;color:rgba(11,11,11,.65)}
   </style>
-
-  <meta name="theme-color" content="#81A473" />
 </head>
 
-<body class="bg-white text-neutral-900">
-  <!-- Top Nav -->
-  <header class="sticky top-0 z-50 bg-white/85 backdrop-blur border-b border-neutral-200">
-    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl flex items-center justify-center font-extrabold text-white"
-             style="background:var(--aoc-black);">
-          AOC
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="inner">
+        <div class="brand">
+          <div class="logo" aria-label="AOC logo">AOC</div>
+          <div>
+            <h1>ART OF CROCHET</h1>
+            <p>Powered by <b>LEGIN KNITS</b></p>
+          </div>
         </div>
-        <div class="leading-tight">
-          <div class="text-xs uppercase tracking-[0.28em] font-semibold">Art of Crochet</div>
-          <div class="text-xs text-neutral-600">Powered by <span class="font-semibold">LEGIN KNITS</span></div>
-        </div>
-      </div>
 
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#offerings" class="hover:opacity-70">Offerings</a>
-        <a href="#how" class="hover:opacity-70">How it works</a>
-        <a href="#packages" class="hover:opacity-70">Packages</a>
-        <a href="#quotes" class="hover:opacity-70">Quotes</a>
-        <a href="#faq" class="hover:opacity-70">FAQ</a>
-        <a href="#calendar"
-           class="rounded-full px-4 py-2 font-semibold text-white"
-           style="background:var(--aoc-black);">
-          Calendar / Book
-        </a>
-      </nav>
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#offerings">Offerings</a>
+          <a href="#calendar">Calendar</a>
+          <a href="#packages">Packages</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn accent" href="#book">Book / Inquire</a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <!-- HERO (Video Banner) -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 moving-grid opacity-60"></div>
+  <main>
 
-    <div class="absolute inset-0">
-      <!-- YouTube background video -->
-      <iframe
-        class="w-full h-full object-cover"
-        src="https://www.youtube.com/embed/VfCpMkDG1wk?autoplay=1&mute=1&loop=1&playlist=VfCpMkDG1wk&controls=0&modestbranding=1&playsinline=1&rel=0"
-        title="AOC Video"
-        frameborder="0"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
+    <!-- HERO + VIDEO BANNER -->
+    <section class="hero" id="home" style="padding:0">
+      <div class="wrap">
+        <div class="heroGrid">
+          <div>
+            <div class="kicker">HOME</div>
+            <h2 class="title">An Elevated Creative Activity</h2>
 
-    <div class="absolute inset-0 video-overlay"></div>
+            <p class="sub rgbWords">
+              Art of Crochet experiences for
+              <span class="t">teams</span>, <span class="s">schools</span> & <span class="c">communities</span>
+            </p>
 
-    <div class="relative mx-auto max-w-7xl px-4 py-16 md:py-20">
-      <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 pill rounded-full px-4 py-2 text-xs font-semibold">
-          <span class="w-2 h-2 rounded-full" style="background:var(--aoc-green);"></span>
-          HOME — Powered by LEGIN KNITS
-        </div>
-
-        <h1 class="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight text-white">
-          An Elevated<br class="hidden md:block" />
-          Creative Activity
-        </h1>
-
-        <p class="mt-5 text-lg md:text-xl text-white/90 leading-relaxed">
-          Art of Crochet experiences for
-          <span class="font-semibold" style="color:var(--aoc-red);">teams</span>,
-          <span class="font-semibold" style="color:var(--aoc-yellow); text-shadow:0 1px 0 rgba(0,0,0,0.35);">schools</span>
-          &amp;
-          <span class="font-semibold" style="color:var(--aoc-green);">communities</span>.
-        </p>
-
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#offerings"
-             class="rounded-full px-6 py-3 font-semibold text-white"
-             style="background:var(--aoc-black);">
-            Scroll down
-          </a>
-          <a href="#calendar"
-             class="rounded-full px-6 py-3 font-semibold border border-white/60 text-white hover:bg-white/10">
-            Calendar / Eventbrite
-          </a>
-        </div>
-
-        <!-- Quick category list -->
-        <div class="mt-10 grid sm:grid-cols-4 gap-3">
-          <div class="pill rounded-2xl p-4">
-            <div class="text-sm font-semibold">Workplace Reset</div>
-            <div class="text-xs text-neutral-700">Team energy + focus</div>
-          </div>
-          <div class="pill rounded-2xl p-4">
-            <div class="text-sm font-semibold">School</div>
-            <div class="text-xs text-neutral-700">Creative learning</div>
-          </div>
-          <div class="pill rounded-2xl p-4">
-            <div class="text-sm font-semibold">Community</div>
-            <div class="text-xs text-neutral-700">Connection + belonging</div>
-          </div>
-          <div class="pill rounded-2xl p-4">
-            <div class="text-sm font-semibold">Culture &amp; Style</div>
-            <div class="text-xs text-neutral-700">Identity + expression</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Accent bar -->
-    <div class="h-2 w-full" style="background:linear-gradient(90deg, var(--aoc-green), var(--aoc-yellow), var(--aoc-red));"></div>
-  </section>
-
-  <!-- OFFERINGS -->
-  <section id="offerings" class="mx-auto max-w-7xl px-4 py-16">
-    <div class="flex items-end justify-between gap-6 flex-wrap">
-      <div>
-        <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">Offerings</div>
-        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold">Where Art of Crochet fits</h2>
-      </div>
-
-      <!-- Counter -->
-      <div class="rounded-3xl border border-neutral-200 bg-white p-5 shadow-sm">
-        <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">
-          People taught to crochet
-        </div>
-        <div class="mt-2 text-4xl font-extrabold count" id="counter">0</div>
-        <div class="mt-1 text-sm text-neutral-600">
-          (You can change this number anytime.)
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-8 grid md:grid-cols-4 gap-6">
-      <div class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
-        <div class="text-sm font-semibold">Workplace Reset</div>
-        <p class="mt-2 text-sm text-neutral-700">A creative reset that helps teams slow down, reconnect, and return to work sharper.</p>
-      </div>
-      <div class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
-        <div class="text-sm font-semibold">School</div>
-        <p class="mt-2 text-sm text-neutral-700">Workshops that support creativity, focus, and hands-on learning—without making the site “only schools”.</p>
-      </div>
-      <div class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
-        <div class="text-sm font-semibold">Community</div>
-        <p class="mt-2 text-sm text-neutral-700">Pop-ups and gatherings designed for connection, belonging, and shared joy.</p>
-      </div>
-      <div class="rounded-3xl border border-neutral-200 bg-white p-6 shadow-sm">
-        <div class="text-sm font-semibold">Culture &amp; Style</div>
-        <p class="mt-2 text-sm text-neutral-700">Crochet as expression—identity, heritage, and style moments people actually want to wear.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CALENDAR / EVENTBRITE -->
-  <section id="calendar" class="mx-auto max-w-7xl px-4 pb-16">
-    <div class="rounded-3xl overflow-hidden border border-neutral-200 bg-white shadow-sm">
-      <div class="p-8 md:p-10 grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">Calendar</div>
-          <h3 class="mt-2 text-2xl md:text-3xl font-extrabold">Events + bookings</h3>
-          <p class="mt-3 text-neutral-700">
-            Use the Eventbrite link for public events, or reach out to book a private experience.
-          </p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="https://www.eventbrite.ca/o/legin-knits-59625526343"
-               target="_blank"
-               class="rounded-full px-6 py-3 font-semibold text-white"
-               style="background:var(--aoc-black);">
-              Open Eventbrite
-            </a>
-            <a href="#packages"
-               class="rounded-full px-6 py-3 font-semibold border border-neutral-900/20 hover:bg-neutral-50">
-              See packages
-            </a>
-          </div>
-        </div>
-
-        <div class="rounded-3xl p-6"
-             style="background:linear-gradient(135deg, rgba(129,164,115,0.16), rgba(251,218,3,0.16), rgba(90,74,64,0.14));">
-          <div class="text-sm font-semibold">Link</div>
-          <a class="mt-2 block break-all underline text-neutral-800"
-             href="https://www.eventbrite.ca/o/legin-knits-59625526343"
-             target="_blank">
-            https://www.eventbrite.ca/o/legin-knits-59625526343
-          </a>
-
-          <div class="mt-6 text-sm font-semibold">Note</div>
-          <p class="mt-2 text-sm text-neutral-700">
-            If you want, we can later embed a live calendar right here — but this keeps it clean for launch.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section id="how" class="mx-auto max-w-7xl px-4 pb-16">
-    <div class="rounded-3xl border border-neutral-200 bg-white shadow-sm p-8 md:p-10">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl flex items-center justify-center font-extrabold text-white"
-             style="background:var(--aoc-green);">✓</div>
-        <div>
-          <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">How it works</div>
-          <h3 class="text-2xl md:text-3xl font-extrabold">AOC experiences — simple + elevated</h3>
-        </div>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-4 gap-6">
-        <div class="rounded-3xl border border-neutral-200 p-6">
-          <div class="text-sm font-semibold">1) Choose a vibe</div>
-          <p class="mt-2 text-sm text-neutral-700">Workshop, lounge, or gathering—based on your people and your space.</p>
-        </div>
-        <div class="rounded-3xl border border-neutral-200 p-6">
-          <div class="text-sm font-semibold">2) We bring the setup</div>
-          <p class="mt-2 text-sm text-neutral-700">Materials + flow handled. You focus on hosting.</p>
-        </div>
-        <div class="rounded-3xl border border-neutral-200 p-6">
-          <div class="text-sm font-semibold">3) Guided + free</div>
-          <p class="mt-2 text-sm text-neutral-700">Structured instruction, plus space for creativity and style.</p>
-        </div>
-        <div class="rounded-3xl border border-neutral-200 p-6">
-          <div class="text-sm font-semibold">4) People leave proud</div>
-          <p class="mt-2 text-sm text-neutral-700">A finished piece, a reset feeling, and a story to tell.</p>
-        </div>
-      </div>
-
-      <div class="mt-8 rounded-3xl p-6"
-           style="background:rgba(129,164,115,0.12); border:1px solid rgba(129,164,115,0.35);">
-        <p class="text-sm text-neutral-800">
-          <span class="font-semibold" style="color:var(--aoc-red);">RED</span> = use for “what not to do” or cautions,
-          <span class="font-semibold"><span class="highlight-yellow">YELLOW</span></span> = for highlighted quotes,
-          <span class="font-semibold" style="color:var(--aoc-green);">GREEN</span> = for “the goodness”.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PACKAGES -->
-  <section id="packages" class="mx-auto max-w-7xl px-4 pb-16">
-    <div class="flex items-end justify-between gap-6 flex-wrap">
-      <div>
-        <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">Typical experience packages</div>
-        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold">Pick the format</h2>
-      </div>
-    </div>
-
-    <div class="mt-8 grid md:grid-cols-3 gap-6">
-      <!-- Workshops -->
-      <div class="rounded-3xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
-        <div class="p-6">
-          <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">Workshops</div>
-          <div class="mt-2 text-2xl font-extrabold">$125 – $275 <span class="text-sm font-semibold text-neutral-600">per person</span></div>
-          <p class="mt-3 text-sm text-neutral-700">Good for corporate teams, museums, and structured learning experiences.</p>
-
-          <div class="mt-5 text-sm font-semibold">Examples</div>
-          <ul class="mt-2 text-sm text-neutral-800 space-y-1">
-            <li>• <span class="font-semibold">OFF THE HOOK</span></li>
-            <li>• <span class="font-semibold">LACED UP</span></li>
-            <li>• <span class="font-semibold">UPLIFTED</span></li>
-          </ul>
-        </div>
-        <div class="h-2" style="background:linear-gradient(90deg, var(--aoc-green), var(--aoc-yellow));"></div>
-      </div>
-
-      <!-- Crochet Lounge -->
-      <div class="rounded-3xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
-        <div class="p-6">
-          <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">Crochet Lounge</div>
-          <div class="mt-2 text-2xl font-extrabold">From $750 <span class="text-sm font-semibold text-neutral-600">flat rate</span></div>
-          <p class="mt-3 text-sm text-neutral-700">10–40 people. Good for schools, retail activations, and galleries.</p>
-
-          <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
-            <div class="rounded-2xl p-4 border border-neutral-200">
-              <div class="font-semibold">Best for</div>
-              <div class="text-neutral-700">Drop-in vibes</div>
+            <div class="pillRow" aria-label="Quick highlights">
+              <div class="pill"><span class="dot"></span><b>Workplace Reset</b></div>
+              <div class="pill"><span class="dot yellow"></span><b>School</b></div>
+              <div class="pill"><span class="dot good"></span><b>Community</b></div>
+              <div class="pill"><span class="dot red"></span><b>Culture & Style</b></div>
             </div>
-            <div class="rounded-2xl p-4 border border-neutral-200">
-              <div class="font-semibold">Feel</div>
-              <div class="text-neutral-700">Warm + social</div>
+
+            <div class="heroActions">
+              <a class="btn primary" href="#offerings">Where AOC fits</a>
+              <a class="btn ghost" href="#calendar">See calendar</a>
+              <a class="btn accent" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">Eventbrite</a>
+            </div>
+
+            <p class="sub" style="margin-top:16px;color:rgba(11,11,11,.72);font-size:15px">
+              <span style="color:var(--red);font-weight:900">RED</span> = “what not to do” emphasis •
+              <span style="color:var(--yellow);font-weight:900">YELLOW</span> = highlighted quotes •
+              <span style="color:var(--good);font-weight:900">GREEN</span> = “goodness” emphasis
+            </p>
+          </div>
+
+          <div class="videoCard" aria-label="AOC video banner">
+            <!-- Looping YouTube embed (playlist=VIDEO_ID + loop=1) -->
+            <iframe
+              src="https://www.youtube.com/embed/VfCpMkDG1wk?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&loop=1&playlist=VfCpMkDG1wk"
+              title="AOC video"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+      </div>
+      <div class="stripe" aria-hidden="true"></div>
+    </section>
+
+    <!-- OFFERINGS -->
+    <section id="offerings">
+      <div class="wrap">
+        <div class="sectionHead">
+          <div>
+            <h2>Offerings</h2>
+            <p>Where Art of Crochet fits — select the vibe, we bring the tools, flow, and facilitation.</p>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Workplace Reset</h3>
+            <p>Team connection, calm focus, creative breakouts — a premium offsite-style experience inside your workplace.</p>
+          </div>
+          <div class="card">
+            <h3>School</h3>
+            <p>Age-appropriate making sessions that build confidence, focus, and patience — fun, structured, and inclusive.</p>
+          </div>
+          <div class="card">
+            <h3>Community</h3>
+            <p>Drop-in stations, group circles, and “learn together” nights that strengthen belonging and shared joy.</p>
+          </div>
+          <div class="card">
+            <h3>Culture & Style</h3>
+            <p>Fashion-forward crochet storytelling — wearable art, creative direction, and hands-on style moments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDAR / EVENTBRITE -->
+    <section id="calendar">
+      <div class="wrap">
+        <div class="sectionHead">
+          <div>
+            <h2>Calendar</h2>
+            <p>Browse upcoming dates — or jump straight to Eventbrite.</p>
+          </div>
+          <a class="btn accent" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">Open Eventbrite</a>
+        </div>
+
+        <div class="grid2">
+          <div class="quoteBlock">
+            <div class="quote">Tip</div>
+            <p class="quoteText">
+              Use this space for rotating highlights: “Next workshop”, “New package drop”, or a short quote pulled from your write-ups.
+            </p>
+          </div>
+
+          <div class="counterCard" aria-label="People taught counter">
+            <div>
+              <div class="counterNum" id="taughtCounter">0</div>
+              <div class="counterMeta">
+                <b>people</b> we’ve taught crochet to date<br/>
+                <span class="small">(update the number in the code any time)</span>
+              </div>
+            </div>
+            <a class="btn primary" href="#packages">See packages</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS + PACKAGES -->
+    <section id="packages">
+      <div class="wrap">
+        <div class="sectionHead">
+          <div>
+            <h2>How AOC experiences work ✅</h2>
+            <p>Simple, premium, and guided — we lead the flow so your group can relax into making.</p>
+          </div>
+        </div>
+
+        <div class="packageGrid">
+          <div class="priceCard">
+            <h3>Typical experience flow</h3>
+            <ul class="list">
+              <li><strong>Arrival + setup</strong> (we handle materials + stations)</li>
+              <li><strong>Warm welcome</strong> + cultural/creative framing</li>
+              <li><strong>Hands-on instruction</strong> (beginner-friendly)</li>
+              <li><strong>Guided making time</strong> + optional music / vibes</li>
+              <li><strong>Share + wrap</strong> (photos, takeaways, next steps)</li>
+            </ul>
+
+            <div class="tagRow" aria-label="Experience tags">
+              <span class="tag">Beginner friendly</span>
+              <span class="tag">Inclusive</span>
+              <span class="tag">Culture-forward</span>
+              <span class="tag">Premium facilitation</span>
             </div>
           </div>
+
+          <div class="quoteBlock">
+            <div class="quote">Quote highlight</div>
+            <p class="quoteText">
+              Paste a real quote from your write-ups here. This block is designed to sit on top of the green accent with a yellow highlight.
+            </p>
+          </div>
         </div>
-        <div class="h-2" style="background:linear-gradient(90deg, var(--aoc-yellow), var(--aoc-red));"></div>
-      </div>
 
-      <!-- Gatherings -->
-      <div class="rounded-3xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
-        <div class="p-6">
-          <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">Gatherings</div>
-          <div class="mt-2 text-2xl font-extrabold">Community</div>
-          <p class="mt-3 text-sm text-neutral-700">Get-togethers built around culture, connection, and creativity.</p>
+        <div style="height:16px"></div>
 
-          <div class="mt-5 text-sm font-semibold">Good for</div>
-          <ul class="mt-2 text-sm text-neutral-800 space-y-1">
-            <li>• Community nights</li>
-            <li>• Pop-ups</li>
-            <li>• Creative socials</li>
-          </ul>
+        <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+          <div class="priceCard">
+            <h3>WORKSHOPS</h3>
+            <p class="price">$125 – $275 <span style="font-size:14px;font-weight:800;color:rgba(11,11,11,.65)">/ person</span></p>
+            <p class="fine">Good for corporate, museums.</p>
+            <ul class="list">
+              <li><strong>OFF THE HOOK</strong></li>
+              <li><strong>LACED UP</strong></li>
+              <li><strong>UPLIFTED</strong></li>
+            </ul>
+          </div>
+
+          <div class="priceCard">
+            <h3>CROCHET LOUNGE</h3>
+            <p class="price">From $750 <span style="font-size:14px;font-weight:800;color:rgba(11,11,11,.65)">flat rate</span></p>
+            <p class="fine">10–40 persons • Good for schools, retail, galleries.</p>
+            <ul class="list">
+              <li>Station-based “lounge” setup</li>
+              <li>Drop-in friendly</li>
+              <li>Photos + share moment</li>
+            </ul>
+          </div>
+
+          <div class="priceCard">
+            <h3>GATHERINGS</h3>
+            <p class="price">Custom</p>
+            <p class="fine">Community get-togethers, circles, and collaborations.</p>
+            <ul class="list">
+              <li>Community</li>
+              <li>Get togethers</li>
+              <li>Partner activations</li>
+            </ul>
+          </div>
         </div>
-        <div class="h-2" style="background:linear-gradient(90deg, var(--aoc-red), var(--aoc-green));"></div>
+
+        <p class="small" style="margin-top:12px">
+          Design note: we can add more “left-to-right” movement near the bottom with more diagonal accent bands once you pick 6–10 real photos.
+        </p>
       </div>
-    </div>
+    </section>
 
-    <p class="mt-4 text-sm text-neutral-600">
-      Pricing shown as guidance — finalize by event size, location, and experience design.
-    </p>
-  </section>
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="sectionHead">
+          <div>
+            <h2>FAQ</h2>
+            <p>Short answers, no friction.</p>
+          </div>
+        </div>
 
-  <!-- QUOTES -->
-  <section id="quotes" class="mx-auto max-w-7xl px-4 pb-16">
-    <div class="rounded-3xl border border-neutral-200 bg-white shadow-sm p-8 md:p-10">
-      <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">Additions</div>
-      <h3 class="mt-2 text-2xl md:text-3xl font-extrabold">Quotes (highlight moments)</h3>
-      <p class="mt-3 text-neutral-700">Pull quotes from write-ups and feature them here.</p>
+        <div class="grid2">
+          <details>
+            <summary>Do you provide materials?</summary>
+            <p>Yes — yarn, hooks, and any station materials are included unless otherwise specified for a custom collaboration.</p>
+          </details>
 
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <blockquote class="rounded-3xl p-6 border border-neutral-200" style="background:rgba(129,164,115,0.12);">
-          <p class="text-neutral-900 leading-relaxed">
-            <span class="highlight-yellow">“</span>
-            Replace this with a real quote from an AOC write-up.
-            <span class="highlight-yellow">”</span>
-          </p>
-          <footer class="mt-3 text-sm text-neutral-700 font-semibold">— Participant</footer>
-        </blockquote>
+          <details>
+            <summary>How many people can participate?</summary>
+            <p>Workshops can scale by format. Crochet Lounge is designed for 10–40 people with a drop-in flow.</p>
+          </details>
 
-        <blockquote class="rounded-3xl p-6 border border-neutral-200" style="background:rgba(129,164,115,0.12);">
-          <p class="text-neutral-900 leading-relaxed">
-            <span class="highlight-yellow">“</span>
-            Add another quote about community, culture, or team connection.
-            <span class="highlight-yellow">”</span>
-          </p>
-          <footer class="mt-3 text-sm text-neutral-700 font-semibold">— Host / Partner</footer>
-        </blockquote>
+          <details>
+            <summary>Is this beginner friendly?</summary>
+            <p>Yes. We design sessions for first-timers and make it feel premium, calm, and fun — no pressure.</p>
+          </details>
 
-        <blockquote class="rounded-3xl p-6 border border-neutral-200" style="background:rgba(129,164,115,0.12);">
-          <p class="text-neutral-900 leading-relaxed">
-            <span class="highlight-yellow">“</span>
-            Add a quote that shows the “goodness” (use <span style="color:var(--aoc-green); font-weight:700;">GREEN</span> words inside).
-            <span class="highlight-yellow">”</span>
-          </p>
-          <footer class="mt-3 text-sm text-neutral-700 font-semibold">— Educator / Leader</footer>
-        </blockquote>
+          <details>
+            <summary>How do we book?</summary>
+            <p>Use the inquiry form below or book public dates on Eventbrite.</p>
+          </details>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="mx-auto max-w-7xl px-4 pb-16">
-    <div class="rounded-3xl border border-neutral-200 bg-white shadow-sm p-8 md:p-10">
-      <div class="text-xs uppercase tracking-[0.28em] font-semibold text-neutral-500">FAQ</div>
-      <h3 class="mt-2 text-2xl md:text-3xl font-extrabold">Quick answers</h3>
+    <!-- BOOK / INQUIRE -->
+    <section id="book" style="border-bottom:none">
+      <div class="wrap">
+        <div class="sectionHead">
+          <div>
+            <h2>Book / Inquire</h2>
+            <p>Tell us your audience (team / school / community), preferred date range, and vibe. We’ll confirm the best package.</p>
+          </div>
+          <a class="btn primary" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">View Eventbrite</a>
+        </div>
 
-      <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <details class="rounded-3xl border border-neutral-200 p-6">
-          <summary class="font-semibold cursor-pointer">Do you provide materials?</summary>
-          <p class="mt-3 text-sm text-neutral-700">Yes — we bring what’s needed unless a special request is made.</p>
-        </details>
+        <div class="grid2">
+          <div class="priceCard">
+            <h3>Quick inquiry</h3>
+            <p class="fine">This is a simple placeholder form (no backend yet). When you’re ready, we’ll connect it to email or a form tool.</p>
+            <form onsubmit="return false;" style="margin-top:12px;display:grid;gap:10px">
+              <input style="padding:12px 12px;border-radius:14px;border:1px solid var(--line)" placeholder="Name / Organization" />
+              <input style="padding:12px 12px;border-radius:14px;border:1px solid var(--line)" placeholder="Email" type="email" />
+              <textarea style="padding:12px 12px;border-radius:14px;border:1px solid var(--line)" rows="4" placeholder="Tell us: team/school/community, group size, dates, goals"></textarea>
+              <button class="btn accent" type="button">Send inquiry (placeholder)</button>
+            </form>
+          </div>
 
-        <details class="rounded-3xl border border-neutral-200 p-6">
-          <summary class="font-semibold cursor-pointer">What size groups work best?</summary>
-          <p class="mt-3 text-sm text-neutral-700">Workshops scale well; lounges are great for 10–40 people; gatherings can be designed for larger community flows.</p>
-        </details>
-
-        <details class="rounded-3xl border border-neutral-200 p-6">
-          <summary class="font-semibold cursor-pointer">Can you tailor for corporate culture?</summary>
-          <p class="mt-3 text-sm text-neutral-700">Yes — we can design a “Workplace Reset” that fits your team’s goals and vibe.</p>
-        </details>
-
-        <details class="rounded-3xl border border-neutral-200 p-6">
-          <summary class="font-semibold cursor-pointer">What should we NOT do? (RED emphasis)</summary>
-          <p class="mt-3 text-sm text-neutral-700">
-            Avoid rushing people or making it “performance-based”.
-            <span style="color:var(--aoc-red); font-weight:700;">Keep it relaxed</span> and guided.
-          </p>
-        </details>
+          <div class="quoteBlock">
+            <div class="quote">Add quotes</div>
+            <p class="quoteText">
+              This is where we’ll drop 2–4 real quotes from your write-ups — designed as “highlight sections” across the page.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-neutral-200">
-    <div class="mx-auto max-w-7xl px-4 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-      <div>
-        <div class="font-extrabold">AOC — Art of Crochet</div>
-        <div class="text-sm text-neutral-600">Powered by LEGIN KNITS</div>
-      </div>
+  </main>
 
-      <div class="text-sm text-neutral-600">
-        <a class="underline" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank">Eventbrite</a>
-        <span class="mx-2">•</span>
-        <span>© <span id="year"></span></span>
+  <footer>
+    <div class="wrap">
+      <div class="inner">
+        <div class="small">© <span id="year"></span> Art of Crochet (AOC) — Powered by LEGIN KNITS</div>
+        <div class="small">
+          <a href="#home" style="text-decoration:none;opacity:.8">Back to top</a>
+        </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // Footer year
+    // year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Counter (set your real total here)
-    const target = 420; // <-- CHANGE THIS NUMBER ANYTIME
-    const el = document.getElementById("counter");
-    let current = 0;
+    // Counter: update this number any time
+    const TARGET_TAUGHT = 248; // <-- change this to your real number
+    const el = document.getElementById("taughtCounter");
 
-    const step = Math.max(1, Math.floor(target / 80));
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) {
-        current = target;
-        clearInterval(timer);
-      }
-      el.textContent = current.toLocaleString();
-    }, 18);
+    // animate up
+    let cur = 0;
+    const steps = 46;
+    const inc = Math.max(1, Math.floor(TARGET_TAUGHT / steps));
+    const tick = () => {
+      cur = Math.min(TARGET_TAUGHT, cur + inc);
+      el.textContent = cur.toLocaleString();
+      if (cur < TARGET_TAUGHT) requestAnimationFrame(tick);
+    };
+    tick();
   </script>
 </body>
 </html>
