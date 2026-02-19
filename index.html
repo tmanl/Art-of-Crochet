@@ -3,608 +3,697 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AOC — Art of Crochet</title>
-  <meta name="description" content="Art of Crochet experiences for teams, schools & communities." />
+  <title>AOC.ca — Art of Crochet (Powered by LEGIN KNITS)</title>
+  <meta name="description" content="Art of Crochet experiences for teams, schools & communities — Powered by LEGIN KNITS." />
+
+  <!-- Fonts (clean + modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#ffffff;
-      --text:#0b0b0b;
-      --muted:#5a5a5a;
+      /* Brand direction from your notes */
+      --bg: #ffffff;
+      --ink: #0b0b0b;         /* BLACK general font */
+      --muted: #5b5b5b;
+      --accent: #81A473;      /* Earthy green (coral) accent */
+      --red: #E24B3B;         /* emphasis what NOT to do */
+      --yellow: #FBDA03;      /* highlighted quote on green */
+      --good: #0B6B3A;        /* green “goodness” word accent (deep) */
 
-      /* From your notes */
-      --accent:#81A473;          /* earthy green (coral) */
-      --yellow:#fbda03;          /* highlight quote */
-      --red:#e23b3b;             /* emphasis (what not to do) */
-      --good:#22a06b;            /* “goodness” emphasis */
-      --line:rgba(11,11,11,.12);
-
-      --radius:22px;
-      --shadow: 0 18px 40px rgba(0,0,0,.10);
-      --shadowSoft: 0 10px 28px rgba(0,0,0,.08);
+      --card: #F6F6F6;
+      --border: rgba(0,0,0,.10);
+      --shadow: 0 14px 40px rgba(0,0,0,.10);
+      --radius: 22px;
 
       --max: 1120px;
     }
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
-    a{color:inherit}
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
-    .topbar{
-      position:sticky;top:0;z-index:50;
-      background:rgba(255,255,255,.80);
+    *{ box-sizing:border-box; }
+    html,body{ margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:100%; max-width:var(--max); margin:0 auto; padding:0 20px; }
+
+    /* Top bar */
+    .nav{
+      position:sticky; top:0; z-index:50;
       backdrop-filter: blur(12px);
-      border-bottom:1px solid var(--line);
+      background: rgba(255,255,255,.78);
+      border-bottom: 1px solid var(--border);
     }
-    .topbar .inner{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:14px 0;
-      gap:14px;
-    }
+    .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px; }
     .brand{
-      display:flex;align-items:center;gap:12px;
+      display:flex; align-items:center; gap:12px;
+      min-width: 240px;
     }
     .logo{
-      width:40px;height:40px;border-radius:14px;
-      background:var(--text);color:#fff;
-      display:grid;place-items:center;
-      font-weight:800;letter-spacing:.08em;font-size:13px;
+      width:42px; height:42px; border-radius:14px;
+      display:grid; place-items:center;
+      background: var(--ink); color:#fff;
+      font-weight:800; letter-spacing:.08em;
     }
-    .brand h1{margin:0;font-size:13px;letter-spacing:.22em}
-    .brand p{margin:2px 0 0 0;font-size:12px;color:var(--muted)}
-    .nav{display:flex;align-items:center;gap:18px;font-size:14px}
-    .nav a{opacity:.84;text-decoration:none}
-    .nav a:hover{opacity:1}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:10px 14px;border-radius:999px;border:1px solid var(--text);
-      text-decoration:none;font-weight:650;
-      transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
-      background:#fff;
+    .brand small{ color:var(--muted); display:block; margin-top:2px; }
+    .nav-links{ display:flex; gap:18px; align-items:center; }
+    .nav-links a{ font-size:14px; color:rgba(0,0,0,.78); padding:10px 12px; border-radius:999px; }
+    .nav-links a:hover{ background: rgba(0,0,0,.05); }
+    .cta{
+      background: var(--ink); color:#fff !important;
+      padding:10px 14px; border-radius:999px;
+      font-weight:600;
     }
-    .btn:hover{transform:translateY(-1px);box-shadow:var(--shadowSoft)}
-    .btn.primary{background:var(--text);color:#fff;border-color:var(--text)}
-    .btn.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
-    .btn.ghost{border-color:var(--line);color:var(--text)}
+    .cta:hover{ opacity:.92; }
 
     /* Hero */
-    .hero{
-      position:relative;
-      border-bottom:1px solid var(--line);
+    .hero{ padding:28px 0 24px; }
+    .hero-grid{
+      display:grid; grid-template-columns: 1.1fr .9fr;
+      gap:22px; align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .nav-links{ display:none; }
+    }
+
+    .hero-card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       overflow:hidden;
+      box-shadow: var(--shadow);
+      background: #fff;
     }
-    /* subtle left-to-right motion vibe: diagonal bands */
-    .hero::before{
-      content:"";
-      position:absolute;inset:-40%;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(129,164,115,.20), transparent 50%),
-        radial-gradient(circle at 80% 35%, rgba(251,218,3,.18), transparent 50%),
-        radial-gradient(circle at 35% 85%, rgba(226,59,59,.14), transparent 55%);
-      transform:rotate(-8deg);
-      pointer-events:none;
-    }
-    .heroGrid{
+    .video-wrap{
       position:relative;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:26px;
-      padding:34px 0 28px;
-      align-items:stretch;
-    }
-    @media (max-width: 920px){
-      .heroGrid{grid-template-columns:1fr; padding-top:22px}
-      .nav{display:none}
-    }
-
-    .kicker{
-      font-size:12px;letter-spacing:.22em;
-      text-transform:uppercase;color:var(--muted);
-    }
-    .title{
-      margin:10px 0 0 0;
-      font-size:50px;line-height:1.02;letter-spacing:-.02em;
-      font-weight:900;
-    }
-    @media (max-width: 520px){ .title{font-size:38px} }
-    .sub{
-      margin:14px 0 0 0;
-      font-size:18px;line-height:1.55;color:rgba(11,11,11,.78);
-      max-width:48ch;
-    }
-
-    .rgbWords .t{color:var(--red);font-weight:900}
-    .rgbWords .s{color:var(--yellow);font-weight:900; text-shadow:0 1px 0 rgba(0,0,0,.08)}
-    .rgbWords .c{color:var(--good);font-weight:900}
-
-    .pillRow{
-      margin-top:18px;
-      display:flex;flex-wrap:wrap;gap:10px;
-    }
-    .pill{
-      display:inline-flex;align-items:center;gap:10px;
-      border:1px solid var(--line);
-      background:#fff;
-      padding:10px 12px;border-radius:999px;
-      font-size:13px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
-    }
-    .dot{width:9px;height:9px;border-radius:99px;background:var(--accent)}
-    .dot.red{background:var(--red)}
-    .dot.yellow{background:var(--yellow)}
-    .dot.good{background:var(--good)}
-
-    .heroActions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
-
-    .videoCard{
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:var(--shadow);
+      aspect-ratio: 16/9;
       background:#000;
-      border:1px solid rgba(0,0,0,.18);
-      min-height:320px;
     }
-    .videoCard iframe{
-      width:100%;height:100%;
-      min-height:320px;
+    .video-wrap iframe{
+      position:absolute; inset:0;
+      width:100%; height:100%;
       border:0;
     }
-    .stripe{
-      height:6px;width:100%;
-      background: linear-gradient(90deg, var(--accent), rgba(129,164,115,.25), var(--yellow));
+    .hero-copy{ padding:22px 22px 18px; }
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      font-size:12px; letter-spacing:.16em;
+      text-transform:uppercase; color:rgba(0,0,0,.70);
     }
+    .dot{ width:10px; height:10px; border-radius:999px; background:var(--accent); }
+    h1{
+      margin:10px 0 10px;
+      font-family: "Playfair Display", serif;
+      font-weight:700;
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    @media (max-width: 520px){
+      h1{ font-size: 36px; }
+    }
+    .sub{
+      margin:0;
+      font-size:16px;
+      line-height:1.6;
+      color: rgba(0,0,0,.72);
+      max-width: 55ch;
+    }
+    .powered{
+      margin-top:14px;
+      font-size:13px;
+      color: rgba(0,0,0,.70);
+    }
+    .powered strong{ color: var(--ink); }
+    .pill-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+    .pill{
+      border:1px solid var(--border);
+      background: #fff;
+      padding:10px 12px;
+      border-radius: 999px;
+      font-size:13px;
+      color: rgba(0,0,0,.78);
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .pill b{ font-weight:700; }
+    .scroll{
+      margin-top:18px;
+      display:flex; align-items:center; gap:10px;
+      font-style:italic;
+      color: rgba(0,0,0,.55);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    .scroll .line{
+      height:1px; flex:1; background: rgba(0,0,0,.12);
+    }
+
+    /* Accent words (teams/schools/communities) */
+    .word-red{ color: var(--red); font-weight:800; }
+    .word-yellow{
+      color: var(--ink);
+      font-weight:800;
+      background: var(--yellow);
+      padding: 2px 8px;
+      border-radius: 999px;
+      display:inline-block;
+    }
+    .word-green{ color: var(--good); font-weight:800; }
 
     /* Sections */
-    section{padding:56px 0;border-bottom:1px solid var(--line)}
-    .sectionHead{
-      display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
-      margin-bottom:18px;
+    section{ padding: 34px 0; }
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px;
+      margin-bottom: 16px;
     }
-    .sectionHead h2{
-      margin:0;font-size:30px;letter-spacing:-.02em;font-weight:900;
-    }
-    .sectionHead p{margin:0;color:var(--muted);max-width:70ch}
-
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    @media (max-width: 860px){ .grid2{grid-template-columns:1fr} }
-
-    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    @media (max-width: 980px){ .cards{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width: 520px){ .cards{grid-template-columns:1fr} }
-
-    .card{
-      background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-      padding:18px;box-shadow: 0 12px 26px rgba(0,0,0,.06);
-      transition: transform .14s ease, box-shadow .14s ease;
-      position:relative;
-      overflow:hidden;
-    }
-    .card:hover{transform:translateY(-2px);box-shadow: 0 18px 40px rgba(0,0,0,.10)}
-    .card h3{margin:0 0 8px 0;font-size:18px;font-weight:850}
-    .card p{margin:0;color:rgba(11,11,11,.72);line-height:1.55}
-
-    /* Offerings: subtle “left to right” motion hint near bottom */
-    .card::after{
-      content:"";
-      position:absolute;left:-30%;bottom:-40%;
-      width:140%;height:90%;
-      background: linear-gradient(90deg, rgba(129,164,115,.0), rgba(129,164,115,.18));
-      transform:rotate(8deg);
-      opacity:.55;
-      pointer-events:none;
-    }
-
-    /* Quote highlight */
-    .quoteBlock{
-      border-radius:var(--radius);
-      background:var(--accent);
-      color:#fff;
-      padding:22px;
-      box-shadow:var(--shadowSoft);
-      position:relative;
-      overflow:hidden;
-    }
-    .quoteBlock::before{
-      content:"";
-      position:absolute;inset:-30%;
-      background: radial-gradient(circle at 25% 25%, rgba(251,218,3,.35), transparent 55%);
-      transform:rotate(-6deg);
-      pointer-events:none;
-    }
-    .quote{
-      position:relative;
-      display:inline-block;
-      background:var(--yellow);
-      color:#111;
-      font-weight:900;
-      padding:10px 12px;
-      border-radius:16px;
-      box-shadow: 0 10px 18px rgba(0,0,0,.18);
-      margin-bottom:12px;
-    }
-    .quoteText{
-      position:relative;
+    .section-title h2{
       margin:0;
-      font-size:18px;line-height:1.55;
-      color:rgba(255,255,255,.92);
-      max-width:78ch;
+      font-size: 22px;
+      letter-spacing: -0.01em;
     }
+    .section-title p{
+      margin:0;
+      color: rgba(0,0,0,.60);
+      font-size: 14px;
+    }
+
+    /* Offering tiles */
+    .grid-4{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .grid-4{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
+      .grid-4{ grid-template-columns: 1fr; }
+    }
+    .tile{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      transform: translateY(0);
+      transition: transform .25s ease, box-shadow .25s ease;
+      min-height: 150px;
+    }
+    .tile:hover{ transform: translateY(-3px); box-shadow: 0 16px 34px rgba(0,0,0,.10); }
+    .tile .tag{
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,.62);
+      display:flex; align-items:center; gap:8px;
+    }
+    .tile .tag .bar{
+      width:12px; height:12px; border-radius:6px;
+      background: var(--accent);
+    }
+    .tile h3{ margin:10px 0 6px; font-size: 18px; }
+    .tile p{ margin:0; color: rgba(0,0,0,.70); line-height:1.55; font-size: 14px; }
+
+    /* Movement hint (left-to-right) */
+    .sweep{
+      margin-top: 18px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(129,164,115,.10), rgba(129,164,115,.55), rgba(129,164,115,.10));
+      background-size: 220% 100%;
+      animation: sweep 4.5s ease-in-out infinite;
+    }
+    @keyframes sweep{
+      0%{ background-position: 0% 0; }
+      50%{ background-position: 100% 0; }
+      100%{ background-position: 0% 0; }
+    }
+
+    /* Event links */
+    .link-card{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+    }
+    .link-card a{
+      color: var(--ink);
+      font-weight:700;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn:hover{ background: rgba(0,0,0,.04); }
 
     /* Packages */
-    .packageGrid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}
-    @media (max-width: 980px){ .packageGrid{grid-template-columns:1fr} }
-
-    .priceCard{
-      background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-      padding:20px;box-shadow:var(--shadowSoft);
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
-    .priceCard h3{margin:0 0 6px 0;font-size:18px;font-weight:900}
-    .price{
-      font-size:28px;font-weight:950;letter-spacing:-.02em;margin:0;color:var(--text)
+    @media (max-width: 900px){
+      .grid-2{ grid-template-columns: 1fr; }
     }
-    .fine{margin:8px 0 0 0;color:rgba(11,11,11,.72);line-height:1.5}
-    .tagRow{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-    .tag{
-      font-size:12px;font-weight:750;
-      border-radius:999px;padding:8px 10px;border:1px solid var(--line);
+    .panel{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
       background:#fff;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+    }
+    .panel h3{ margin:0 0 8px; font-size: 18px; }
+    .price{
+      font-size: 16px;
+      font-weight: 800;
+      color: rgba(0,0,0,.88);
+    }
+    .list{ margin: 10px 0 0; padding-left: 18px; color: rgba(0,0,0,.72); }
+    .list li{ margin: 6px 0; }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(129,164,115,.18);
+      border: 1px solid rgba(129,164,115,.30);
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    .list{
-      margin:10px 0 0 0;padding-left:16px;color:rgba(11,11,11,.72);line-height:1.6
+    /* Quotes */
+    .quotes{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
     }
-    .list strong{color:var(--text)}
+    @media (max-width: 980px){
+      .quotes{ grid-template-columns: 1fr; }
+    }
+    .quote{
+      border-radius: var(--radius);
+      background: var(--accent);
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .quote span{
+      display:inline-block;
+      background: var(--yellow);
+      padding: 8px 10px;
+      border-radius: 14px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .quote small{
+      display:block;
+      margin-top:10px;
+      color: rgba(0,0,0,.78);
+      font-weight:600;
+    }
+
+    /* FAQ accordion */
+    details{
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      background:#fff;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+    }
+    details + details{ margin-top: 10px; }
+    summary{ cursor:pointer; font-weight: 800; }
+    details p{ margin: 10px 0 0; color: rgba(0,0,0,.72); line-height:1.6; }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 34px;
+      border-top: 1px solid var(--border);
+      color: rgba(0,0,0,.65);
+      font-size: 13px;
+    }
 
     /* Counter */
-    .counterCard{
-      border-radius:var(--radius);
-      border:1px solid var(--line);
+    .counter{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
       background:#fff;
-      padding:18px;
-      box-shadow:var(--shadowSoft);
-      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding: 16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
     }
-    .counterNum{
-      font-size:42px;line-height:1;font-weight:950;letter-spacing:-.03em;
+    .counter strong{
+      font-size: 34px;
+      letter-spacing: -0.02em;
     }
-    .counterMeta{color:rgba(11,11,11,.72);line-height:1.4}
-    .counterMeta b{color:var(--text)}
-    @media (max-width: 620px){
-      .counterCard{flex-direction:column;align-items:flex-start}
-      .counterNum{font-size:38px}
+    .counter .label{
+      color: rgba(0,0,0,.70);
+      font-weight:700;
     }
-
-    /* FAQ */
-    details{
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px 14px;
-      background:#fff;
-      box-shadow: 0 10px 20px rgba(0,0,0,.05);
-    }
-    summary{cursor:pointer;font-weight:850}
-    details p{margin:10px 0 0 0;color:rgba(11,11,11,.72);line-height:1.55}
-
-    footer{padding:26px 0}
-    footer .inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .small{font-size:13px;color:rgba(11,11,11,.65)}
   </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="wrap">
-      <div class="inner">
-        <div class="brand">
-          <div class="logo" aria-label="AOC logo">AOC</div>
-          <div>
-            <h1>ART OF CROCHET</h1>
-            <p>Powered by <b>LEGIN KNITS</b></p>
-          </div>
-        </div>
 
-        <nav class="nav" aria-label="Primary navigation">
-          <a href="#offerings">Offerings</a>
-          <a href="#calendar">Calendar</a>
-          <a href="#packages">Packages</a>
-          <a href="#faq">FAQ</a>
-          <a class="btn accent" href="#book">Book / Inquire</a>
-        </nav>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo">AOC</div>
+        <div>
+          <div style="font-weight:800; letter-spacing:.10em;">ART OF CROCHET</div>
+          <small>Powered by <strong>LEGIN KNITS</strong></small>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#offerings">Offerings</a>
+        <a href="#how">How it works</a>
+        <a href="#packages">Packages</a>
+        <a href="#faq">FAQ</a>
+        <a class="cta" href="#calendar">Calendar / Tickets</a>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main>
-
-    <!-- HERO + VIDEO BANNER -->
-    <section class="hero" id="home" style="padding:0">
-      <div class="wrap">
-        <div class="heroGrid">
-          <div>
-            <div class="kicker">HOME</div>
-            <h2 class="title">An Elevated Creative Activity</h2>
-
-            <p class="sub rgbWords">
-              Art of Crochet experiences for
-              <span class="t">teams</span>, <span class="s">schools</span> & <span class="c">communities</span>
-            </p>
-
-            <div class="pillRow" aria-label="Quick highlights">
-              <div class="pill"><span class="dot"></span><b>Workplace Reset</b></div>
-              <div class="pill"><span class="dot yellow"></span><b>School</b></div>
-              <div class="pill"><span class="dot good"></span><b>Community</b></div>
-              <div class="pill"><span class="dot red"></span><b>Culture & Style</b></div>
-            </div>
-
-            <div class="heroActions">
-              <a class="btn primary" href="#offerings">Where AOC fits</a>
-              <a class="btn ghost" href="#calendar">See calendar</a>
-              <a class="btn accent" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">Eventbrite</a>
-            </div>
-
-            <p class="sub" style="margin-top:16px;color:rgba(11,11,11,.72);font-size:15px">
-              <span style="color:var(--red);font-weight:900">RED</span> = “what not to do” emphasis •
-              <span style="color:var(--yellow);font-weight:900">YELLOW</span> = highlighted quotes •
-              <span style="color:var(--good);font-weight:900">GREEN</span> = “goodness” emphasis
-            </p>
-          </div>
-
-          <div class="videoCard" aria-label="AOC video banner">
-            <!-- Looping YouTube embed (playlist=VIDEO_ID + loop=1) -->
-            <iframe
-              src="https://www.youtube.com/embed/VfCpMkDG1wk?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&loop=1&playlist=VfCpMkDG1wk"
-              title="AOC video"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              loading="lazy">
-            </iframe>
-          </div>
+  <!-- HERO -->
+  <main class="hero">
+    <div class="container hero-grid">
+      <!-- Video banner -->
+      <div class="hero-card">
+        <div class="video-wrap" aria-label="AOC banner video">
+          <!-- YouTube autoplay requires mute=1 -->
+          <iframe
+            src="https://www.youtube.com/embed/VfCpMkDG1wk?autoplay=1&mute=1&loop=1&playlist=VfCpMkDG1wk&controls=0&modestbranding=1&rel=0"
+            title="AOC Banner Video"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
-      <div class="stripe" aria-hidden="true"></div>
-    </section>
 
-    <!-- OFFERINGS -->
-    <section id="offerings">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Offerings</h2>
-            <p>Where Art of Crochet fits — select the vibe, we bring the tools, flow, and facilitation.</p>
-          </div>
-        </div>
+      <!-- Copy -->
+      <div class="hero-card">
+        <div class="hero-copy">
+          <div class="kicker"><span class="dot"></span> An elevated creative activity</div>
 
-        <div class="cards">
-          <div class="card">
-            <h3>Workplace Reset</h3>
-            <p>Team connection, calm focus, creative breakouts — a premium offsite-style experience inside your workplace.</p>
-          </div>
-          <div class="card">
-            <h3>School</h3>
-            <p>Age-appropriate making sessions that build confidence, focus, and patience — fun, structured, and inclusive.</p>
-          </div>
-          <div class="card">
-            <h3>Community</h3>
-            <p>Drop-in stations, group circles, and “learn together” nights that strengthen belonging and shared joy.</p>
-          </div>
-          <div class="card">
-            <h3>Culture & Style</h3>
-            <p>Fashion-forward crochet storytelling — wearable art, creative direction, and hands-on style moments.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+          <h1>
+            Art of Crochet experiences for
+            <span class="word-red">teams</span>,
+            <span class="word-yellow">schools</span> &
+            <span class="word-green">communities</span>.
+          </h1>
 
-    <!-- CALENDAR / EVENTBRITE -->
-    <section id="calendar">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Calendar</h2>
-            <p>Browse upcoming dates — or jump straight to Eventbrite.</p>
-          </div>
-          <a class="btn accent" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">Open Eventbrite</a>
-        </div>
+          <p class="sub">
+            AOC is where creativity meets connection — hands-on crochet experiences that reset focus,
+            build culture, and bring people together through style, rhythm, and making.
+          </p>
 
-        <div class="grid2">
-          <div class="quoteBlock">
-            <div class="quote">Tip</div>
-            <p class="quoteText">
-              Use this space for rotating highlights: “Next workshop”, “New package drop”, or a short quote pulled from your write-ups.
-            </p>
+          <p class="powered">
+            <strong>Powered by LEGIN KNITS</strong> • Toronto-based • Available for pop-ups + onsite experiences
+          </p>
+
+          <div class="pill-row">
+            <span class="pill"><b>Workplace Reset</b> • team wellbeing</span>
+            <span class="pill"><b>School</b> • creative learning</span>
+            <span class="pill"><b>Community</b> • get-togethers</span>
+            <span class="pill"><b>Culture & Style</b> • elevated vibe</span>
           </div>
 
-          <div class="counterCard" aria-label="People taught counter">
-            <div>
-              <div class="counterNum" id="taughtCounter">0</div>
-              <div class="counterMeta">
-                <b>people</b> we’ve taught crochet to date<br/>
-                <span class="small">(update the number in the code any time)</span>
-              </div>
-            </div>
-            <a class="btn primary" href="#packages">See packages</a>
+          <div class="scroll">
+            <span>SCROLL DOWN</span><span class="line"></span>
           </div>
+
+          <div class="sweep" aria-hidden="true"></div>
         </div>
       </div>
-    </section>
-
-    <!-- HOW IT WORKS + PACKAGES -->
-    <section id="packages">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>How AOC experiences work ✅</h2>
-            <p>Simple, premium, and guided — we lead the flow so your group can relax into making.</p>
-          </div>
-        </div>
-
-        <div class="packageGrid">
-          <div class="priceCard">
-            <h3>Typical experience flow</h3>
-            <ul class="list">
-              <li><strong>Arrival + setup</strong> (we handle materials + stations)</li>
-              <li><strong>Warm welcome</strong> + cultural/creative framing</li>
-              <li><strong>Hands-on instruction</strong> (beginner-friendly)</li>
-              <li><strong>Guided making time</strong> + optional music / vibes</li>
-              <li><strong>Share + wrap</strong> (photos, takeaways, next steps)</li>
-            </ul>
-
-            <div class="tagRow" aria-label="Experience tags">
-              <span class="tag">Beginner friendly</span>
-              <span class="tag">Inclusive</span>
-              <span class="tag">Culture-forward</span>
-              <span class="tag">Premium facilitation</span>
-            </div>
-          </div>
-
-          <div class="quoteBlock">
-            <div class="quote">Quote highlight</div>
-            <p class="quoteText">
-              Paste a real quote from your write-ups here. This block is designed to sit on top of the green accent with a yellow highlight.
-            </p>
-          </div>
-        </div>
-
-        <div style="height:16px"></div>
-
-        <div class="cards" style="grid-template-columns:repeat(3,1fr)">
-          <div class="priceCard">
-            <h3>WORKSHOPS</h3>
-            <p class="price">$125 – $275 <span style="font-size:14px;font-weight:800;color:rgba(11,11,11,.65)">/ person</span></p>
-            <p class="fine">Good for corporate, museums.</p>
-            <ul class="list">
-              <li><strong>OFF THE HOOK</strong></li>
-              <li><strong>LACED UP</strong></li>
-              <li><strong>UPLIFTED</strong></li>
-            </ul>
-          </div>
-
-          <div class="priceCard">
-            <h3>CROCHET LOUNGE</h3>
-            <p class="price">From $750 <span style="font-size:14px;font-weight:800;color:rgba(11,11,11,.65)">flat rate</span></p>
-            <p class="fine">10–40 persons • Good for schools, retail, galleries.</p>
-            <ul class="list">
-              <li>Station-based “lounge” setup</li>
-              <li>Drop-in friendly</li>
-              <li>Photos + share moment</li>
-            </ul>
-          </div>
-
-          <div class="priceCard">
-            <h3>GATHERINGS</h3>
-            <p class="price">Custom</p>
-            <p class="fine">Community get-togethers, circles, and collaborations.</p>
-            <ul class="list">
-              <li>Community</li>
-              <li>Get togethers</li>
-              <li>Partner activations</li>
-            </ul>
-          </div>
-        </div>
-
-        <p class="small" style="margin-top:12px">
-          Design note: we can add more “left-to-right” movement near the bottom with more diagonal accent bands once you pick 6–10 real photos.
-        </p>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>FAQ</h2>
-            <p>Short answers, no friction.</p>
-          </div>
-        </div>
-
-        <div class="grid2">
-          <details>
-            <summary>Do you provide materials?</summary>
-            <p>Yes — yarn, hooks, and any station materials are included unless otherwise specified for a custom collaboration.</p>
-          </details>
-
-          <details>
-            <summary>How many people can participate?</summary>
-            <p>Workshops can scale by format. Crochet Lounge is designed for 10–40 people with a drop-in flow.</p>
-          </details>
-
-          <details>
-            <summary>Is this beginner friendly?</summary>
-            <p>Yes. We design sessions for first-timers and make it feel premium, calm, and fun — no pressure.</p>
-          </details>
-
-          <details>
-            <summary>How do we book?</summary>
-            <p>Use the inquiry form below or book public dates on Eventbrite.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- BOOK / INQUIRE -->
-    <section id="book" style="border-bottom:none">
-      <div class="wrap">
-        <div class="sectionHead">
-          <div>
-            <h2>Book / Inquire</h2>
-            <p>Tell us your audience (team / school / community), preferred date range, and vibe. We’ll confirm the best package.</p>
-          </div>
-          <a class="btn primary" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">View Eventbrite</a>
-        </div>
-
-        <div class="grid2">
-          <div class="priceCard">
-            <h3>Quick inquiry</h3>
-            <p class="fine">This is a simple placeholder form (no backend yet). When you’re ready, we’ll connect it to email or a form tool.</p>
-            <form onsubmit="return false;" style="margin-top:12px;display:grid;gap:10px">
-              <input style="padding:12px 12px;border-radius:14px;border:1px solid var(--line)" placeholder="Name / Organization" />
-              <input style="padding:12px 12px;border-radius:14px;border:1px solid var(--line)" placeholder="Email" type="email" />
-              <textarea style="padding:12px 12px;border-radius:14px;border:1px solid var(--line)" rows="4" placeholder="Tell us: team/school/community, group size, dates, goals"></textarea>
-              <button class="btn accent" type="button">Send inquiry (placeholder)</button>
-            </form>
-          </div>
-
-          <div class="quoteBlock">
-            <div class="quote">Add quotes</div>
-            <p class="quoteText">
-              This is where we’ll drop 2–4 real quotes from your write-ups — designed as “highlight sections” across the page.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </main>
 
-  <footer>
-    <div class="wrap">
-      <div class="inner">
-        <div class="small">© <span id="year"></span> Art of Crochet (AOC) — Powered by LEGIN KNITS</div>
-        <div class="small">
-          <a href="#home" style="text-decoration:none;opacity:.8">Back to top</a>
+  <!-- OFFERINGS -->
+  <section id="offerings">
+    <div class="container">
+      <div class="section-title">
+        <h2>OFFERINGS</h2>
+        <p>Where Art of Crochet fits</p>
+      </div>
+
+      <div class="grid-4">
+        <div class="tile">
+          <div class="tag"><span class="bar"></span> Workplace Reset</div>
+          <h3>Team workshops + culture moments</h3>
+          <p>Hands-on sessions designed to lower stress, boost connection, and leave people proud of what they made.</p>
         </div>
+
+        <div class="tile">
+          <div class="tag"><span class="bar"></span> School</div>
+          <h3>Creative learning</h3>
+          <p>Age-friendly crochet experiences that build focus, patience, and creativity. (One option — not the whole site.)</p>
+        </div>
+
+        <div class="tile">
+          <div class="tag"><span class="bar"></span> Community</div>
+          <h3>Get-togethers + activations</h3>
+          <p>Pop-up crochet corners, community hangouts, and group making experiences that feel warm and elevated.</p>
+        </div>
+
+        <div class="tile">
+          <div class="tag"><span class="bar"></span> Culture & Style</div>
+          <h3>Fashion-forward crochet energy</h3>
+          <p>Curated creative vibes — good music, beautiful materials, and a visual aesthetic that feels premium.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR / EVENTBRITE -->
+  <section id="calendar">
+    <div class="container">
+      <div class="section-title">
+        <h2>CALENDAR</h2>
+        <p>Upcoming sessions + tickets</p>
+      </div>
+
+      <div class="link-card">
+        <div>
+          <div style="font-weight:800; margin-bottom:6px;">Eventbrite (LEGIN KNITS)</div>
+          <a href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">
+            https://www.eventbrite.ca/o/legin-knits-59625526343
+          </a>
+          <div style="margin-top:6px; color: rgba(0,0,0,.65); font-size: 13px;">
+            If you prefer a calendar embed later, this section can be swapped for a live calendar.
+          </div>
+        </div>
+        <a class="btn" href="https://www.eventbrite.ca/o/legin-knits-59625526343" target="_blank" rel="noreferrer">Open Eventbrite →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="section-title">
+        <h2>How AOC experiences work ✅</h2>
+        <p>Simple, guided, and elevated</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3><span class="badge">Step 1</span> Choose your vibe</h3>
+          <ul class="list">
+            <li><span class="word-green">Good</span> for bonding + creativity</li>
+            <li><span class="word-yellow">Perfect</span> for first-timers</li>
+            <li><span class="word-red">Avoid</span> overcomplicating — we keep it doable</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3><span class="badge">Step 2</span> We bring the setup</h3>
+          <ul class="list">
+            <li>Materials + tools + beginner-friendly guidance</li>
+            <li>Optional: curated music / vibe direction</li>
+            <li>Participants leave with something real</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3><span class="badge">Step 3</span> Your group makes together</h3>
+          <ul class="list">
+            <li>Hands-on instruction + pacing that feels calm</li>
+            <li>Space for conversation + connection</li>
+            <li>Photos encouraged (it’s a look)</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3><span class="badge">Step 4</span> Wrap + next steps</h3>
+          <ul class="list">
+            <li>Optional: take-home tips / next-level patterns</li>
+            <li>Optional: follow-up gathering</li>
+            <li>Optional: product add-ons</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages">
+    <div class="container">
+      <div class="section-title">
+        <h2>Typical experience packages</h2>
+        <p>Flexible formats for different audiences</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3>WORKSHOPS</h3>
+          <div class="price">From $125 – $275 per person</div>
+          <div style="margin-top:8px; color: rgba(0,0,0,.70);">Good for corporate, museums</div>
+
+          <ul class="list">
+            <li><strong>OFF THE HOOK</strong> — intro + confidence builder</li>
+            <li><strong>LACED UP</strong> — technique + style focus</li>
+            <li><strong>UPLIFTED</strong> — mindful making + reset energy</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>CROCHET LOUNGE</h3>
+          <div class="price">Flat rates from $750</div>
+          <div style="margin-top:8px; color: rgba(0,0,0,.70);">10–40 persons • Good for schools, retail, galleries</div>
+
+          <ul class="list">
+            <li>Drop-in lounge style</li>
+            <li>Guided mini projects</li>
+            <li>Photo-friendly setup + vibe</li>
+          </ul>
+        </div>
+
+        <div class="panel" style="grid-column: 1 / -1;">
+          <h3>GATHERINGS</h3>
+          <div style="color: rgba(0,0,0,.70);">Community • Get-togethers</div>
+          <ul class="list">
+            <li>Small-group hangs</li>
+            <li>Pop-ups + collabs</li>
+            <li>Culture-forward creative space</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTER + QUOTES -->
+  <section id="proof">
+    <div class="container">
+      <div class="section-title">
+        <h2>Proof + vibes</h2>
+        <p>Quotes + impact</p>
+      </div>
+
+      <!-- Counter -->
+      <div class="counter" style="margin-bottom: 14px;">
+        <div>
+          <div class="label">People we’ve taught crochet to date</div>
+          <div style="color: rgba(0,0,0,.62); font-size: 13px; margin-top: 6px;">
+            (You can change this number anytime in the code.)
+          </div>
+        </div>
+        <strong id="count">0</strong>
+      </div>
+
+      <!-- Quotes (replace these with real write-up quotes) -->
+      <div class="quotes">
+        <div class="quote">
+          <span>“I didn’t expect this to feel so calming — I left with something I actually made.”</span>
+          <small>— Workshop attendee</small>
+        </div>
+        <div class="quote">
+          <span>“The vibe was premium. It felt like culture + creativity, not a basic craft class.”</span>
+          <small>— Corporate booking</small>
+        </div>
+        <div class="quote">
+          <span>“Everyone talked to someone new. That never happens at our events.”</span>
+          <small>— Community partner</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title">
+        <h2>FAQ</h2>
+        <p>Quick answers</p>
+      </div>
+
+      <details>
+        <summary>Do people need experience?</summary>
+        <p>No — our formats are designed for beginners and first-timers. We keep it guided, calm, and achievable.</p>
+      </details>
+
+      <details>
+        <summary>What do you bring?</summary>
+        <p>Materials, tools, and a structured flow. If needed, we’ll also advise on space setup so it looks and feels elevated.</p>
+      </details>
+
+      <details>
+        <summary>Can schools be one option (not the whole focus)?</summary>
+        <p>Yes — the site is built around multiple audiences (teams, schools, communities). Schools are one offering, not the identity.</p>
+      </details>
+
+      <details>
+        <summary>How do we book?</summary>
+        <p>Use the Eventbrite link above for public events. For private bookings, you can add a contact section next (email + inquiry form).</p>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+      <div>© <span id="year"></span> Art of Crochet (AOC). Powered by LEGIN KNITS.</div>
+      <div style="display:flex; gap:14px;">
+        <a href="#calendar" style="text-decoration:underline; text-underline-offset:4px;">Calendar</a>
+        <a href="#offerings" style="text-decoration:underline; text-underline-offset:4px;">Offerings</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // year
+    // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Counter: update this number any time
-    const TARGET_TAUGHT = 248; // <-- change this to your real number
-    const el = document.getElementById("taughtCounter");
-
-    // animate up
-    let cur = 0;
-    const steps = 46;
-    const inc = Math.max(1, Math.floor(TARGET_TAUGHT / steps));
-    const tick = () => {
-      cur = Math.min(TARGET_TAUGHT, cur + inc);
-      el.textContent = cur.toLocaleString();
-      if (cur < TARGET_TAUGHT) requestAnimationFrame(tick);
-    };
-    tick();
+    // Counter (EDIT THIS NUMBER)
+    const PEOPLE_TAUGHT = 420; // <-- change this
+    const el = document.getElementById("count");
+    let current = 0;
+    const step = Math.max(1, Math.floor(PEOPLE_TAUGHT / 90));
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= PEOPLE_TAUGHT) {
+        current = PEOPLE_TAUGHT;
+        clearInterval(timer);
+      }
+      el.textContent = current.toLocaleString();
+    }, 18);
   </script>
+
 </body>
 </html>
