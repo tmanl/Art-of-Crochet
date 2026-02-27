@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art of Crochet — Legin Knits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── CSS Variables ─── */
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f2ec;
+      --red: #c0392b;
+      --yellow: #fbda03;
+      --green: #1a5c2a;
+      --green-light: #2d7a3e;
+      --coral: #e8856a;
+      --gray: #1c1c1c;
+      --gray-mid: #2e2e2e;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'Bricolage Grotesque', sans-serif;
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(251,218,3,0.12);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--yellow); }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245,242,236,0.65);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta {
+      background: var(--yellow);
+      color: var(--black) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2px;
+      font-weight: 700;
+      color: var(--black) !important;
+    }
+    .nav-cta:hover { background: var(--white) !important; color: var(--black) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      overflow: hidden;
+      padding: 0 3rem 5rem;
+    }
+    .hero-video-wrap {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-video-wrap iframe {
+      width: 100%; height: 100%;
+      pointer-events: none;
+      border: none;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,10,0.35) 0%,
+        rgba(10,10,10,0.1) 40%,
+        rgba(10,10,10,0.88) 100%
+      );
+    }
+    /* Yarn stripe accent bar */
+    .hero-stripe {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      height: 8px;
+      background: linear-gradient(to right, var(--red) 33%, var(--yellow) 33% 66%, var(--green) 66%);
+    }
+    .hero-content {
+      position: relative; z-index: 3;
+      max-width: 900px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 12vw, 11rem);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .red { color: var(--red); }
+    .hero-title .yellow { color: var(--yellow); }
+    .hero-title .green { color: var(--green-light); }
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(245,242,236,0.8);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .hero-badges {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+    }
+    .badge-red { border-color: var(--red); color: var(--red); }
+    .badge-yellow { border-color: var(--yellow); color: var(--yellow); }
+    .badge-green { border-color: var(--green-light); color: var(--green-light); }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--yellow); color: var(--black);
+      font-family: var(--font-mono); font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1rem 2.5rem; border: none; cursor: pointer;
+      transition: all 0.25s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      font-family: var(--font-mono); font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 1rem 2.5rem; border: 1px solid rgba(245,242,236,0.3); cursor: pointer;
+      transition: all 0.25s; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--white); }
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; right: 3rem; z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .scroll-hint span {
+      font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,242,236,0.4);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, rgba(251,218,3,0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.3; transform: scaleY(0.6); }
+    }
+
+    /* ─── SECTION COMMONS ─── */
+    section { padding: 8rem 3rem; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--yellow); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 6rem);
+      line-height: 0.95; margin-bottom: 1.5rem;
+    }
+    .section-body {
+      font-size: 1.05rem; line-height: 1.75; font-weight: 300;
+      color: rgba(245,242,236,0.8); max-width: 600px;
+    }
+
+    /* ─── DIVIDER STRIPE ─── */
+    .stripe-divider {
+      height: 6px;
+      background: linear-gradient(to right, var(--green) 0%, var(--yellow) 40%, var(--red) 75%, var(--green) 100%);
+      opacity: 0.7;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--white); color: var(--black);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    #about .section-label { color: var(--green); }
+    #about .section-body { color: rgba(10,10,10,0.75); max-width: 100%; }
+    .about-quote {
+      position: relative;
+      background: var(--black); color: var(--yellow);
+      padding: 3.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1;
+    }
+    .about-quote::before {
+      content: '"';
+      position: absolute; top: 1rem; left: 1.5rem;
+      font-size: 8rem; line-height: 1; color: rgba(251,218,3,0.15);
+      font-family: Georgia, serif;
+    }
+    .about-quote .accent-red { color: var(--red); }
+    .about-quote .accent-green { color: var(--green-light); }
+    .stat-row {
+      display: flex; gap: 3rem; margin-top: 2.5rem; flex-wrap: wrap;
+    }
+    .stat { display: flex; flex-direction: column; gap: 0.3rem; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem; line-height: 1; color: var(--green);
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(10,10,10,0.55);
+    }
+
+    /* ─── OFFERINGS (Marquee) ─── */
+    #offerings {
+      padding: 0;
+      overflow: hidden;
+      background: var(--black);
+    }
+    .offerings-header {
+      padding: 7rem 3rem 3rem;
+    }
+    .marquee-track {
+      display: flex; width: max-content;
+      animation: marquee 22s linear infinite;
+      border-top: 1px solid rgba(245,242,236,0.08);
+      border-bottom: 1px solid rgba(245,242,236,0.08);
+      margin-bottom: 0;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-item {
+      display: flex; align-items: center; gap: 2rem;
+      padding: 1.5rem 3rem;
+      white-space: nowrap;
+      font-family: var(--font-display);
+      font-size: 1.5rem; letter-spacing: 0.05em;
+      border-right: 1px solid rgba(245,242,236,0.06);
+    }
+    .marquee-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-red { background: var(--red); }
+    .dot-yellow { background: var(--yellow); }
+    .dot-green { background: var(--green-light); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── PACKAGES GRID ─── */
+    #packages {
+      background: var(--gray);
+    }
+    .packages-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5px; margin-top: 4rem;
+      border: 1.5px solid rgba(245,242,236,0.06);
+    }
+    .package-card {
+      background: var(--black);
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.35s;
+      cursor: default;
+    }
+    .package-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .card-hook::after { background: var(--red); }
+    .card-laced::after { background: var(--yellow); }
+    .card-uplifted::after { background: var(--green-light); }
+    .card-lounge::after { background: var(--coral); }
+    .package-card:hover { background: #111; }
+    .pkg-tag {
+      display: inline-block;
+      font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; margin-bottom: 1.5rem;
+      border-radius: 100px;
+    }
+    .tag-red { background: rgba(192,57,43,0.15); color: var(--red); border: 1px solid rgba(192,57,43,0.3); }
+    .tag-yellow { background: rgba(251,218,3,0.1); color: var(--yellow); border: 1px solid rgba(251,218,3,0.25); }
+    .tag-green { background: rgba(26,92,42,0.2); color: var(--green-light); border: 1px solid rgba(45,122,62,0.3); }
+    .tag-coral { background: rgba(232,133,106,0.12); color: var(--coral); border: 1px solid rgba(232,133,106,0.25); }
+    .pkg-name {
+      font-family: var(--font-display);
+      font-size: 2.8rem; line-height: 0.95;
+      margin-bottom: 0.8rem;
+    }
+    .pkg-tagline {
+      font-family: var(--font-mono); font-size: 0.75rem;
+      color: rgba(245,242,236,0.5); letter-spacing: 0.05em;
+      margin-bottom: 1.5rem; font-style: italic;
+    }
+    .pkg-price {
+      font-family: var(--font-display);
+      font-size: 2.2rem; margin-bottom: 0.4rem;
+    }
+    .pkg-range {
+      font-size: 0.78rem; color: rgba(245,242,236,0.45);
+      margin-bottom: 1.5rem; font-family: var(--font-mono);
+    }
+    .pkg-features {
+      list-style: none; display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .pkg-features li {
+      font-size: 0.88rem; color: rgba(245,242,236,0.7);
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      line-height: 1.4;
+    }
+    .pkg-features li::before { content: '—'; color: var(--yellow); flex-shrink: 0; }
+
+    /* ─── GATHERINGS ─── */
+    #gatherings {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; padding: 0;
+    }
+    .gatherings-img {
+      height: 600px; overflow: hidden;
+    }
+    .gatherings-img img { width: 100%; height: 100%; object-fit: cover; }
+    .gatherings-content {
+      background: var(--green); color: var(--white);
+      padding: 6rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .gatherings-content .section-label { color: var(--yellow); }
+    .gatherings-content .section-title { color: var(--white); }
+    .gatherings-content .section-body { color: rgba(255,255,255,0.85); max-width: 100%; }
+    .g-detail {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      font-family: var(--font-mono); font-size: 0.75rem;
+      letter-spacing: 0.05em; color: rgba(255,255,255,0.6);
+    }
+
+    /* ─── PRIVATE EVENTS ─── */
+    #private {
+      background: var(--black);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; padding: 0;
+    }
+    .private-content {
+      background: var(--black); padding: 6rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .private-img {
+      height: 600px; overflow: hidden; position: relative;
+    }
+    .private-img img { width: 100%; height: 100%; object-fit: cover; }
+    .private-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,0.4), transparent);
+    }
+
+    /* ─── PULLQUOTE ─── */
+    .pullquote-section {
+      background: var(--yellow); color: var(--black);
+      text-align: center; padding: 6rem 3rem;
+    }
+    .pullquote-text {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: 1.05; max-width: 900px; margin: 0 auto 1.5rem;
+    }
+    .pullquote-attr {
+      font-family: var(--font-mono); font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(10,10,10,0.55);
+    }
+
+    /* ─── COUNTER SECTION ─── */
+    #counters {
+      background: var(--black);
+      border-top: 1px solid rgba(245,242,236,0.06);
+      border-bottom: 1px solid rgba(245,242,236,0.06);
+      padding: 5rem 3rem;
+      display: flex; justify-content: center;
+    }
+    .counters-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; max-width: 1000px; width: 100%;
+    }
+    .counter-item {
+      text-align: center; padding: 2rem;
+      border-right: 1px solid rgba(245,242,236,0.08);
+    }
+    .counter-item:last-child { border-right: none; }
+    .counter-num {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 8vw, 7rem);
+      line-height: 1; display: block;
+    }
+    .counter-num.c-red { color: var(--red); }
+    .counter-num.c-yellow { color: var(--yellow); }
+    .counter-num.c-green { color: var(--green-light); }
+    .counter-label {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(245,242,236,0.4); margin-top: 0.5rem;
+    }
+
+    /* ─── CALENDAR / EVENTS ─── */
+    #events {
+      background: var(--gray);
+    }
+    .events-cta-box {
+      margin-top: 3rem;
+      border: 1px solid rgba(251,218,3,0.2);
+      padding: 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 2rem;
+    }
+    .events-cta-box p {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(245,242,236,0.65); max-width: 500px; line-height: 1.6;
+    }
+
+    /* ─── FAQ ─── */
+    #faq {
+      background: var(--white); color: var(--black);
+    }
+    #faq .section-label { color: var(--green); }
+    .faq-list {
+      margin-top: 3.5rem; max-width: 780px;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(10,10,10,0.12);
+    }
+    .faq-q {
+      font-family: var(--font-body); font-weight: 600;
+      font-size: 1rem; padding: 1.4rem 0;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; gap: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .faq-q .toggle {
+      width: 28px; height: 28px; flex-shrink: 0;
+      border: 1px solid rgba(10,10,10,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; transition: transform 0.3s, background 0.3s;
+    }
+    .faq-item.open .faq-q .toggle {
+      transform: rotate(45deg); background: var(--yellow);
+    }
+    .faq-a {
+      font-size: 0.93rem; line-height: 1.75;
+      color: rgba(10,10,10,0.65); padding-bottom: 1.4rem;
+      max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding-bottom 0.3s;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    /* ─── PARTNERS ─── */
+    #partners {
+      background: var(--black); text-align: center;
+      padding: 5rem 3rem;
+    }
+    .partners-label {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(245,242,236,0.3); margin-bottom: 2.5rem;
+    }
+    .partners-grid {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: 3rem 4rem;
+    }
+    .partner-name {
+      font-family: var(--font-mono); font-size: 0.75rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(245,242,236,0.3);
+      transition: color 0.2s;
+    }
+    .partner-name:hover { color: rgba(245,242,236,0.65); }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--black);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+    }
+    .contact-big {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 7rem);
+      line-height: 0.95; margin-bottom: 2rem;
+    }
+    .contact-big .accent { color: var(--yellow); }
+    .contact-info {
+      display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;
+    }
+    .contact-row {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.92rem; color: rgba(245,242,236,0.7);
+    }
+    .contact-row .icon {
+      width: 36px; height: 36px; background: rgba(245,242,236,0.05);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(245,242,236,0.45);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(245,242,236,0.04);
+      border: 1px solid rgba(245,242,236,0.1);
+      color: var(--white); font-family: var(--font-body);
+      font-size: 0.95rem; padding: 0.85rem 1.1rem;
+      outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--yellow);
+    }
+    .form-select option { background: var(--black); }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #050505;
+      padding: 3rem;
+      border-top: 1px solid rgba(245,242,236,0.06);
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display); font-size: 1.3rem;
+      letter-spacing: 0.06em;
+    }
+    .footer-logo span { color: var(--yellow); }
+    .footer-links {
+      display: flex; gap: 2rem; list-style: none; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(245,242,242,0.35); transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-copy {
+      font-family: var(--font-mono); font-size: 0.62rem;
+      letter-spacing: 0.08em; color: rgba(245,242,236,0.25);
+    }
+    .footer-stripe {
+      height: 4px; width: 100%;
+      background: linear-gradient(to right, var(--red), var(--yellow), var(--green));
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: var(--black); flex-direction: column;
+      justify-content: center; align-items: center; gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display); font-size: 3rem;
+      letter-spacing: 0.04em; color: var(--white);
+    }
+    .mobile-menu a:hover { color: var(--yellow); }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; color: var(--white);
+      font-size: 2rem; cursor: pointer;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 5rem 1.5rem; }
+      #hero { padding: 0 1.5rem 4rem; }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      #gatherings, #private, #contact { grid-template-columns: 1fr; }
+      .gatherings-img, .private-img { height: 350px; }
+      .gatherings-content, .private-content { padding: 4rem 2rem; }
+      #contact { gap: 3rem; padding: 4rem 1.5rem; }
+      .counters-grid { grid-template-columns: 1fr; }
+      .counter-item { border-right: none; border-bottom: 1px solid rgba(245,242,236,0.08); }
+      .packages-grid { grid-template-columns: 1fr; }
+      .events-cta-box { flex-direction: column; align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
+      /* 4-offerings grid stacks to 1 column on mobile */
+      .offerings-4grid { grid-template-columns: 1fr !important; }
+      /* offerings header spacing on mobile */
+      #offerings .offerings-header { padding: 5rem 1.5rem 2rem !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav>
+  <div class="nav-logo">LEGIN <span>KNITS</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#packages">Offerings</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <div class="hamburger" id="menuBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="menuClose" aria-label="Close">✕</button>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#packages" onclick="closeMobileMenu()">Offerings</a>
+  <a href="#events" onclick="closeMobileMenu()">Events</a>
+  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="#contact" onclick="closeMobileMenu()">Book Now</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-video-wrap">
+    <!-- AOC Hero Video — loops silently on repeat as requested -->
+    <iframe
+      src="https://www.youtube.com/embed/VfCpMkDG1wk?autoplay=1&mute=1&loop=1&playlist=VfCpMkDG1wk&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1"
+      title="Art of Crochet by Legin Knits"
+      allow="autoplay; encrypted-media; fullscreen"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-stripe"></div>
+
+  <div class="hero-content reveal">
+    <p class="hero-eyebrow">Powered by Legin Knits</p>
+    <h1 class="hero-title">
+      ART OF<br/>
+      <span class="red">CRO</span><span class="yellow">CH</span><span class="green">ET</span>
+    </h1>
+
+    <!-- "An Elevated Creative Activity" as its own line -->
+    <p class="hero-sub" style="font-size:clamp(1rem,2vw,1.3rem); font-weight:400; letter-spacing:0.04em; margin-bottom:0.7rem;">
+      An Elevated Creative Activity
+    </p>
+
+    <!-- Exact copy: experiences for teams / schools / communities with brand colours -->
+    <p class="hero-sub" style="margin-bottom:2rem;">
+      Art of Crochet experiences for
+      <span style="color:var(--red); font-weight:600;">teams</span>,
+      <span style="color:var(--yellow); font-weight:600;">schools</span>
+      &amp; <span style="color:var(--green-light); font-weight:600;">communities</span>
+    </p>
+
+    <!-- Four offering pills: Workplace Reset / School / Community / Culture & Style -->
+    <div class="hero-badges" style="margin-bottom:2.5rem;">
+      <span class="badge badge-red">Workplace Reset</span>
+      <span class="badge badge-yellow">School</span>
+      <span class="badge badge-green">Community</span>
+      <span class="badge" style="border-color:rgba(245,242,236,0.4);color:var(--white);">Culture &amp; Style</span>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Session</a>
+      <a href="#packages" class="btn-ghost">See Offerings ↓</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">Art of Crochet</p>
+    <h2 class="section-title">The Art<br/>of Being</h2>
+    <p class="section-body">
+      Crochet is a practice of personal transformation. Each stitch sparks motivation,
+      unlocks untapped creativity, and fosters mindfulness. The act of creation empowers us,
+      as we craft not only beautiful pieces — but also a <span style="color:var(--green)">renewed sense of self</span>.
+    </p>
+    <p class="section-body" style="margin-top:1.2rem;">
+      Elevate your well-being through the therapeutic art of crochet —
+      where <span style="color:var(--red)">art</span>, <span style="color:var(--green)">love</span>,
+      and life are <span style="color:var(--green)">woven together</span>.
+    </p>
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-number" data-target="1200" id="count1">0</span>
+        <span class="stat-label">People Taught</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-target="50" id="count2">0</span>
+        <span class="stat-label">Events Hosted</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-target="8" id="count3">0</span>
+        <span class="stat-label">Years Running</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal reveal-delay-1">
+    <div class="about-quote">
+      "Art of crochet is<br/>
+      the <span class="accent-red">art</span> of<br/>
+      <span class="accent-green">being</span>"
+    </div>
+  </div>
+</section>
+
+<div class="stripe-divider"></div>
+
+<!-- ─── OFFERINGS ─── -->
+<div id="offerings">
+  <!-- Header: "Where Art Of Crochet Fits" -->
+  <div class="offerings-header reveal" style="padding: 7rem 3rem 3rem;">
+    <p class="section-label">Where Art Of Crochet Fits</p>
+    <h2 class="section-title">Our<br/>Offerings</h2>
+    <p class="section-body" style="margin-top:1rem; max-width:580px;">
+      Four ways Art of Crochet shows up — each designed to meet you where you are.
+    </p>
+  </div>
+
+  <!-- 4-category offering cards -->
+  <div style="display:grid; grid-template-columns:repeat(2,1fr); border-top:1px solid rgba(245,242,236,0.06);" class="offerings-4grid">
+
+    <!-- 01 Workplace Reset -->
+    <div class="reveal" style="padding:3.5rem; border-right:1px solid rgba(245,242,236,0.06); border-bottom:1px solid rgba(245,242,236,0.06); position:relative; transition:background 0.3s;" onmouseenter="this.style.background='#111'" onmouseleave="this.style.background='transparent'">
+      <div style="font-family:var(--font-display);font-size:5rem;line-height:1;color:rgba(245,242,236,0.05);position:absolute;top:1.5rem;right:2rem;">01</div>
+      <span style="display:inline-block;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:100px;border:1px solid rgba(192,57,43,0.4);background:rgba(192,57,43,0.08);color:var(--red);margin-bottom:1.2rem;">Workplace Reset</span>
+      <h3 style="font-family:var(--font-display);font-size:2.6rem;line-height:0.95;margin-bottom:0.5rem;">Workshops</h3>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.45);font-style:italic;margin-bottom:1.4rem;">Corporate teams, museums &amp; organizations</p>
+      <p style="font-family:var(--font-display);font-size:2rem;margin-bottom:0.3rem;">From $100–$275</p>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.38);margin-bottom:1.4rem;">per person · 25–200 people</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.55rem;">
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> <strong>Off The Hook</strong> $100 · 2hr fundamentals</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> <strong>Laced Up</strong> $125 · craft your own laces</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> <strong>Uplifted</strong> $250 · 4hr full experience</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Hook + natural fibre yarn kit per person</li>
+      </ul>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--red);"></div>
+    </div>
+
+    <!-- 02 School -->
+    <div class="reveal reveal-delay-1" style="padding:3.5rem; border-bottom:1px solid rgba(245,242,236,0.06); position:relative; transition:background 0.3s;" onmouseenter="this.style.background='#111'" onmouseleave="this.style.background='transparent'">
+      <div style="font-family:var(--font-display);font-size:5rem;line-height:1;color:rgba(245,242,236,0.05);position:absolute;top:1.5rem;right:2rem;">02</div>
+      <span style="display:inline-block;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:100px;border:1px solid rgba(251,218,3,0.35);background:rgba(251,218,3,0.08);color:var(--yellow);margin-bottom:1.2rem;">School</span>
+      <h3 style="font-family:var(--font-display);font-size:2.6rem;line-height:0.95;margin-bottom:0.5rem;">Crochet Lounge</h3>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.45);font-style:italic;margin-bottom:1.4rem;">Schools, retail &amp; galleries</p>
+      <p style="font-family:var(--font-display);font-size:2rem;margin-bottom:0.3rem;">From $750</p>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.38);margin-bottom:1.4rem;">flat rate · 10–40 persons</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.55rem;">
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Intimate, calm creative environment</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Guided by Legin &amp; the team</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Flexible format &amp; timing</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> All materials provided</li>
+      </ul>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--yellow);"></div>
+    </div>
+
+    <!-- 03 Community -->
+    <div class="reveal reveal-delay-2" style="padding:3.5rem; border-right:1px solid rgba(245,242,236,0.06); position:relative; transition:background 0.3s;" onmouseenter="this.style.background='#111'" onmouseleave="this.style.background='transparent'">
+      <div style="font-family:var(--font-display);font-size:5rem;line-height:1;color:rgba(245,242,236,0.05);position:absolute;top:1.5rem;right:2rem;">03</div>
+      <span style="display:inline-block;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:100px;border:1px solid rgba(45,122,62,0.4);background:rgba(45,122,62,0.1);color:var(--green-light);margin-bottom:1.2rem;">Community</span>
+      <h3 style="font-family:var(--font-display);font-size:2.6rem;line-height:0.95;margin-bottom:0.5rem;">Gatherings</h3>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.45);font-style:italic;margin-bottom:1.4rem;">Community get-togethers · pricing varies</p>
+      <p style="font-family:var(--font-display);font-size:2rem;margin-bottom:0.3rem;">Contact Us</p>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.38);margin-bottom:1.4rem;">all skill levels · live music + food &amp; drinks</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.55rem;">
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Elevated creative social activity</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Live entertainment &amp; performances</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Cozy, calming crochet setting</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Creativity · harmony · well-being</li>
+      </ul>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--green-light);"></div>
+    </div>
+
+    <!-- 04 Culture & Style -->
+    <div class="reveal reveal-delay-3" style="padding:3.5rem; position:relative; transition:background 0.3s;" onmouseenter="this.style.background='#111'" onmouseleave="this.style.background='transparent'">
+      <div style="font-family:var(--font-display);font-size:5rem;line-height:1;color:rgba(245,242,236,0.05);position:absolute;top:1.5rem;right:2rem;">04</div>
+      <span style="display:inline-block;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:100px;border:1px solid rgba(245,242,236,0.2);background:rgba(245,242,236,0.04);color:var(--white);margin-bottom:1.2rem;">Culture &amp; Style</span>
+      <h3 style="font-family:var(--font-display);font-size:2.6rem;line-height:0.95;margin-bottom:0.5rem;">Private Events</h3>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.45);font-style:italic;margin-bottom:1.4rem;">Brand activations, fashion &amp; exclusive experiences</p>
+      <p style="font-family:var(--font-display);font-size:2rem;margin-bottom:0.3rem;">Contact Us</p>
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(245,242,236,0.38);margin-bottom:1.4rem;">fully customized · any location</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.55rem;">
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> World-class musicians, DJs &amp; caterers</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Crochet woven into fashion &amp; culture</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Memories that resonate with creativity</li>
+        <li style="font-size:0.88rem;color:rgba(245,242,236,0.68);display:flex;gap:0.6rem;"><span style="color:var(--yellow);">—</span> Perfect for launches &amp; brand activations</li>
+      </ul>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(245,242,236,0.25);"></div>
+    </div>
+
+  </div><!-- end 4-grid -->
+
+  <!-- Scroll-down marquee ticker -->
+  <div style="overflow:hidden; border-top:1px solid rgba(245,242,236,0.06); border-bottom:1px solid rgba(245,242,236,0.06); margin-top:0;">
+    <div class="marquee-track" aria-hidden="true">
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Workplace Reset</div>
+      <div class="marquee-item"><span class="marquee-dot dot-yellow"></span>School</div>
+      <div class="marquee-item"><span class="marquee-dot dot-green"></span>Community</div>
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Culture &amp; Style</div>
+      <div class="marquee-item"><span class="marquee-dot dot-yellow"></span>Off The Hook</div>
+      <div class="marquee-item"><span class="marquee-dot dot-green"></span>Laced Up</div>
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Uplifted</div>
+      <div class="marquee-item"><span class="marquee-dot dot-yellow"></span>Crochet Lounge</div>
+      <div class="marquee-item"><span class="marquee-dot dot-green"></span>Gatherings</div>
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Private Events</div>
+      <!-- duplicate set for seamless loop -->
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Workplace Reset</div>
+      <div class="marquee-item"><span class="marquee-dot dot-yellow"></span>School</div>
+      <div class="marquee-item"><span class="marquee-dot dot-green"></span>Community</div>
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Culture &amp; Style</div>
+      <div class="marquee-item"><span class="marquee-dot dot-yellow"></span>Off The Hook</div>
+      <div class="marquee-item"><span class="marquee-dot dot-green"></span>Laced Up</div>
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Uplifted</div>
+      <div class="marquee-item"><span class="marquee-dot dot-yellow"></span>Crochet Lounge</div>
+      <div class="marquee-item"><span class="marquee-dot dot-green"></span>Gatherings</div>
+      <div class="marquee-item"><span class="marquee-dot dot-red"></span>Private Events</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PACKAGES ─── -->
+<section id="packages">
+  <div class="reveal">
+    <p class="section-label">Workshops</p>
+    <h2 class="section-title">Typical<br/>Packages</h2>
+    <p class="section-body">
+      From $125–$275 per person. Good for <span style="color:var(--yellow)">corporate</span>,
+      museums, and teams of 25–200 people. Each participant receives their own crochet hook,
+      high-quality natural fibre yarns, and a drawstring bag.
+    </p>
+  </div>
+
+  <div class="packages-grid">
+    <!-- Off The Hook -->
+    <div class="package-card card-hook reveal reveal-delay-1">
+      <span class="pkg-tag tag-red">Workshop</span>
+      <h3 class="pkg-name">Off The Hook</h3>
+      <p class="pkg-tagline">This is Elevated Creativity!</p>
+      <p class="pkg-price">$100</p>
+      <p class="pkg-range">per person · 25–200 people</p>
+      <ul class="pkg-features">
+        <li>2 hours of crochet practice</li>
+        <li>Master fundamental crochet techniques</li>
+        <li>Crochet hook + natural fibre yarn kit</li>
+        <li>Drawstring bag for your creation</li>
+      </ul>
+    </div>
+
+    <!-- Laced Up -->
+    <div class="package-card card-laced reveal reveal-delay-2">
+      <span class="pkg-tag tag-yellow">Workshop</span>
+      <h3 class="pkg-name">Laced Up</h3>
+      <p class="pkg-tagline">One-of-a-kind laces for footwear made by you!</p>
+      <p class="pkg-price">$125</p>
+      <p class="pkg-range">per person · 25–200 people</p>
+      <ul class="pkg-features">
+        <li>2 hours of crochet practice</li>
+        <li>Craft your own custom shoe laces</li>
+        <li>Master fundamental crochet techniques</li>
+        <li>Full hook + yarn kit included</li>
+      </ul>
+    </div>
+
+    <!-- Uplifted -->
+    <div class="package-card card-uplifted reveal reveal-delay-3">
+      <span class="pkg-tag tag-green">Premium Workshop</span>
+      <h3 class="pkg-name">Uplifted</h3>
+      <p class="pkg-tagline">Taking beloved items to a higher level!</p>
+      <p class="pkg-price">$250</p>
+      <p class="pkg-range">per person · 25–200 people</p>
+      <ul class="pkg-features">
+        <li>4-hour full experience</li>
+        <li>2hrs crochet fundamentals</li>
+        <li>2hrs applying crochet to your items</li>
+        <li>Complete hook + yarn kit</li>
+      </ul>
+    </div>
+
+    <!-- Crochet Lounge -->
+    <div class="package-card card-lounge reveal reveal-delay-1">
+      <span class="pkg-tag tag-coral">Crochet Lounge</span>
+      <h3 class="pkg-name">Crochet Lounge</h3>
+      <p class="pkg-tagline">Flat Rates — good for schools, retail, galleries</p>
+      <p class="pkg-price">from $750</p>
+      <p class="pkg-range">flat rate · 10–40 persons</p>
+      <ul class="pkg-features">
+        <li>Intimate community setting</li>
+        <li>Ideal for schools & galleries</li>
+        <li>Flexible format &amp; timing</li>
+        <li>Full materials provided</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PULLQUOTE ─── -->
+<div class="pullquote-section">
+  <p class="pullquote-text">"Each stitch sparks motivation, unlocks untapped creativity, and fosters mindfulness."</p>
+  <p class="pullquote-attr">— Legin, Founder of Legin Knits</p>
+</div>
+
+<!-- ─── COUNTERS ─── -->
+<div id="counters">
+  <div class="counters-grid">
+    <div class="counter-item">
+      <span class="counter-num c-red" data-target="1200" id="hero-c1">0+</span>
+      <p class="counter-label">People Taught Crochet</p>
+    </div>
+    <div class="counter-item">
+      <span class="counter-num c-yellow" data-target="50" id="hero-c2">0+</span>
+      <p class="counter-label">Events &amp; Workshops</p>
+    </div>
+    <div class="counter-item">
+      <span class="counter-num c-green" data-target="15" id="hero-c3">0+</span>
+      <p class="counter-label">Partner Organizations</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── GATHERINGS ─── -->
+<div id="gatherings">
+  <div class="gatherings-img">
+    <!-- placeholder — replace with your actual image -->
+    <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80" alt="Legin Knits Gathering" loading="lazy" />
+  </div>
+  <div class="gatherings-content reveal">
+    <p class="section-label">Community</p>
+    <h2 class="section-title">Gatherings</h2>
+    <p class="section-body">
+      Enjoy a cozy time of elevated creative activity and social togetherness.
+      Meant to enrich your spirit with <span style="color:var(--yellow)">creativity</span>,
+      harmony, and overall well-being.
+    </p>
+    <p class="section-body" style="margin-top:1rem;">
+      Bringing the calming art of crochet and live entertainment/performances.
+      It's all about embracing new beginnings and crafting your own unique story.
+    </p>
+    <p class="g-detail">Live music · Food & drinks · All skill levels welcome · Pricing varies</p>
+    <div style="margin-top:2rem;">
+      <a href="#contact" class="btn-primary" style="background:var(--yellow);">Inquire About Gatherings</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PRIVATE EVENTS ─── -->
+<div id="private">
+  <div class="private-content reveal">
+    <p class="section-label">Exclusive</p>
+    <h2 class="section-title">Private<br/>Events</h2>
+    <p class="section-body">
+      Transform your special location into a haven of creativity and relaxation.
+      We partner with world-class musicians, DJs, caterers, and entertainers to ensure
+      the event is a perfect fit for you and your guests.
+    </p>
+    <p class="section-body" style="margin-top:1rem;">
+      Elevate your private event into an unforgettable experience — crafting memories
+      that resonate with <span style="color:var(--yellow)">harmony</span> and
+      <span style="color:var(--green-light)">creativity</span>.
+    </p>
+    <div style="margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="#contact" class="btn-primary">Get Event Pricing</a>
+    </div>
+  </div>
+  <div class="private-img">
+    <img src="https://images.unsplash.com/photo-1544531585-9847b68c8c86?w=800&q=80" alt="Private Crochet Event" loading="lazy" />
+    <div class="private-img-overlay"></div>
+  </div>
+</div>
+
+<!-- ─── EVENTS / CALENDAR ─── -->
+<section id="events">
+  <div class="reveal">
+    <p class="section-label">Upcoming</p>
+    <h2 class="section-title">Events &amp;<br/>Calendar</h2>
+    <p class="section-body">
+      Stay connected with the latest AOC experiences. From corporate workshops to
+      community gatherings — there's always something being woven together.
+      Register directly through Eventbrite.
+    </p>
+    <div class="events-cta-box">
+      <div>
+        <p style="font-family:var(--font-display); font-size:1.8rem; margin-bottom:0.6rem; color:var(--white);">View &amp; Register for Upcoming Events</p>
+        <p>Browse all upcoming Art of Crochet experiences — workshops, gatherings, crochet lounges and more. All skill levels welcome. Book your spot today.</p>
+      </div>
+      <a
+        href="https://www.eventbrite.ca/o/legin-knits-59625526343"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary"
+        style="white-space:nowrap; flex-shrink:0;"
+      >
+        Open Eventbrite →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section id="faq">
+  <p class="section-label">Questions</p>
+  <h2 class="section-title" style="color:var(--black)">FAQ</h2>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">
+        Do I need any crochet experience?
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">Not at all! All Art of Crochet experiences are designed to be accessible for complete beginners. Our sessions are guided by Legin and the team, so you'll be stitching in no time regardless of your skill level.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        What's included in each session?
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">Every participant receives their own crochet hook, high-quality natural fibre yarns, and a drawstring bag to store their creations. All you need to bring is yourself and an open mind.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        How many people can participate?
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">Workshops accommodate between 25 and 200 people. The Crochet Lounge format is ideal for smaller groups of 10–40 people. For large-scale events, get in touch and we'll work out the best format for you.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        Can you come to our office or venue?
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">Yes! Legin Knits is fully mobile. We can bring Art of Crochet to your office, school, gallery, hotel, or any venue of your choosing. We partner with world-class caterers, DJs, and entertainers to fully customize the experience.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        How do I book and what's the lead time?
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">Fill out the contact form below or reach out via email at legin@leginknits.com. We recommend booking at least 2–3 weeks in advance for corporate events, though we can sometimes accommodate shorter lead times.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        Is Art of Crochet good for team building?
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">Absolutely. AOC is a <span style="color:var(--green)">proven tool for team building</span> — it fosters camaraderie, reduces stress, and unlocks creativity in a way most team activities can't. Past clients include AGO Youth, Staples, Sinai Health, and Soho House.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PARTNERS ─── -->
+<section id="partners">
+  <p class="partners-label">Trusted by leading organizations</p>
+  <div class="partners-grid">
+    <span class="partner-name">AGO Youth</span>
+    <span class="partner-name">Bata Shoe Museum</span>
+    <span class="partner-name">Staples</span>
+    <span class="partner-name">Sinai Health</span>
+    <span class="partner-name">Soho House</span>
+    <span class="partner-name">Puma</span>
+    <span class="partner-name">The Drake Hotel</span>
+    <span class="partner-name">Textile Museum of Canada</span>
+    <span class="partner-name">Ryerson University</span>
+    <span class="partner-name">iBlend Sound</span>
+    <span class="partner-name">Romni Wools</span>
+    <span class="partner-name">Vero Media</span>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">Let's Crochet</p>
+    <h2 class="contact-big">Let's<br/><span class="accent">Connect</span></h2>
+    <p class="section-body" style="color:rgba(245,242,236,0.65)">
+      Whether you're a beginner or seasoned crafter, our expert-led sessions are here
+      to elevate your experience with the perfect blend of creativity and relaxation.
+    </p>
+    <div class="contact-info">
+      <div class="contact-row">
+        <span class="icon">✉</span>
+        <a href="mailto:legin@leginknits.com">legin@leginknits.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="icon">☎</span>
+        <a href="tel:4169026876">(416) 902-6876</a>
+      </div>
+      <div class="contact-row">
+        <span class="icon">🌐</span>
+        <a href="https://leginknits.com" target="_blank">leginknits.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="icon">📸</span>
+        <a href="https://instagram.com/leginknits" target="_blank">@leginknits</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form reveal reveal-delay-1">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="fname">First Name</label>
+        <input class="form-input" type="text" id="fname" placeholder="Legin" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="lname">Last Name</label>
+        <input class="form-input" type="text" id="lname" placeholder="Smith" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-input" type="email" id="email" placeholder="you@company.com" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="org">Organization</label>
+      <input class="form-input" type="text" id="org" placeholder="Your company or school" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="service">Experience Type</label>
+      <select class="form-select" id="service">
+        <option value="">Select an experience…</option>
+        <option>Off The Hook — $100/person</option>
+        <option>Laced Up — $125/person</option>
+        <option>Uplifted — $250/person</option>
+        <option>Crochet Lounge — from $750 flat</option>
+        <option>Gatherings</option>
+        <option>Private Event</option>
+        <option>Not sure yet</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="groupsize">Approximate Group Size</label>
+      <input class="form-input" type="text" id="groupsize" placeholder="e.g. 50 people" />
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="msg">Message</label>
+      <textarea class="form-textarea" id="msg" placeholder="Tell us about your event, preferred dates, or any questions…"></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%; font-size:0.9rem; padding:1.1rem;"
+      onclick="handleSubmit(event)">
+      Send Message →
+    </button>
+    <p id="form-thanks" style="display:none; color:var(--yellow); font-family:var(--font-mono); font-size:0.8rem; text-align:center; margin-top:1rem; letter-spacing:0.1em;">
+      ✓ MESSAGE SENT — WE'LL BE IN TOUCH SOON!
+    </p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<div class="footer-stripe"></div>
+<footer>
+  <div class="footer-logo">LEGIN <span>KNITS</span></div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#packages">Offerings</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://instagram.com/leginknits" target="_blank">Instagram</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Legin Knits. Art of Crochet is the Art of Being.</p>
+</footer>
+
+<script>
+  // ─── Mobile Menu ───
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuClose = document.getElementById('menuClose');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+
+  // ─── Scroll Reveal ───
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // ─── Counter Animation ───
+  function animateCounter(el, target, suffix = '+') {
+    let start = 0;
+    const duration = 1800;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        const target = parseInt(e.target.dataset.target);
+        animateCounter(e.target, target);
+        counterObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  ['count1','count2','count3','hero-c1','hero-c2','hero-c3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) counterObserver.observe(el);
+  });
+
+  // ─── FAQ Accordion ───
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ─── Form Submit (demo) ───
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-thanks').style.display = 'block';
+  }
+</script>
+</body>
+</html>
